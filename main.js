@@ -19,9 +19,7 @@ function draw(){
 	
 	//executed 60 times per second after all loads have completed
 
-
-
-
+	blit(0,0,canvas.width,canvas.height,chessboard)
 
 
 	stroke(255);
@@ -32,7 +30,6 @@ function draw(){
 
 	rect(100,100,100,100)
 
-	blit(0,0,canvas.width,canvas.height,chessboard)
-	
+
 
 }
