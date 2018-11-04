@@ -15,7 +15,7 @@ function setup(){
 function draw(){
 	background(51);
 	
-	blit(chessboard,0,0,canvas.width,canvas.height)
+	// blit(chessboard,0,0,canvas.width,canvas.height)
 
 	stroke(255);
 	noFill();
