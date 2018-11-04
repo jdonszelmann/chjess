@@ -21,12 +21,15 @@ function draw(){
 
 	blit(0,0,canvas.width,canvas.height,chessboard)
 
-	stroke(255);
-	noFill();
-	ellipse(canvas.width/2,canvas.height/2,50,50);
 
+	stroke(255);
+	ellipse(canvas.width/2,canvas.height/2,50,50);
+	noFill();
 
 	line(0,0,canvas.width,canvas.height)
 
 	rect(100,100,100,100)
+
+
+
 }
