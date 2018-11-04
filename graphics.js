@@ -89,39 +89,18 @@ function eventloop(){
 
 }
 
-let images = [];
-let loadcount = 0;
-
-function createImage(){
-	let i = new Image();
-	images.push(i);
-	i.onload = () => {
-		console.log("loaded")
-		loadcount++;
-		if(loadcount == images.length){
-			loaddone();
-		}
-	}
-	return i;
-}
 
 function blit(x,y,w,h,img){
 	context.drawImage(img, x, y, w, h);
 }
 
-function loaddone(){
-
-	restoredefaults();
-	window.setInterval(eventloop, (1/60)*1000);
-}
 
 window.onload = function(){
-	setup();
-	if(images.length == 0){
-		loaddone();
-	}
-
+	restoredefaults();
+	window.setInterval(eventloop, (1/60)*1000);	
 }
+
+setup();
 
 
 

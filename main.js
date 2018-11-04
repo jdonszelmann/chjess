@@ -7,15 +7,14 @@ function setup(){
 	canvas.height = canvas.width;
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
 
-	chessboard = createImage();
+	chessboard = new Image();
 	chessboard.src = "recourses/chessboard.png"
 
 }
 
 function draw(){
-	background(51);
 	
-	// blit(chessboard,0,0,canvas.width,canvas.height)
+	blit(0,0,canvas.width,canvas.height,chessboard)
 
 	stroke(255);
 	noFill();
