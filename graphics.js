@@ -57,7 +57,6 @@ function strokeWidth(width){
 //restores default context.
 function restoredefaults(){
 	context.setTransform(1, 0, 0, 1, 0, 0);
-	context.globalCompositeOperation = "destination-over";
 	context.setLineDash([])
 	noFill();
 	stroke(255);
@@ -68,8 +67,8 @@ function restoredefaults(){
 function background(r,g=r,b=g,a=1){
 	fill(r,g,b,a);
 	context.fillRect(0, 0, canvas.width, canvas.height);
-	noFill();
 	update();
+	noFill();
 }
 
 //updates the screen. has to happen after every drawn shape
