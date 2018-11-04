@@ -3,6 +3,9 @@
 let chessboard;
 
 function setup(){
+
+	//graphics lib executes this once at load time
+
 	canvas.width = window.innerHeight-50;
 	canvas.height = canvas.width;
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
@@ -14,6 +17,8 @@ function setup(){
 
 function draw(){
 	
+	//executed 60 times per second after all loads have completed
+
 	blit(0,0,canvas.width,canvas.height,chessboard)
 
 	stroke(255);
