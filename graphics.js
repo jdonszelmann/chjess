@@ -59,8 +59,7 @@ function restoredefaults(){
 	context.setTransform(1, 0, 0, 1, 0, 0);
 	context.globalCompositeOperation = "destination-over";
 	context.setLineDash([])
-	context.setTransform(1, 0, 0, 1, 0, 0);
-	noFill();;
+	noFill();
 	stroke(255);
 	strokeWidth(1);
 }
@@ -69,6 +68,7 @@ function restoredefaults(){
 function background(r,g=r,b=g,a=1){
 	fill(r,g,b,a);
 	context.fillRect(0, 0, canvas.width, canvas.height);
+	noFill();
 	update();
 }
 
@@ -103,9 +103,11 @@ function ellipse(x,y,w,h=w){
 //executed 60 times per second, calls draw and then updates
 function eventloop(){
 	
-	window.requestAnimationFrame(draw);
-	update();
-	restoredefaults();
+	draw();
+	// update();
+	// restoredefaults();
+
+	window.requestAnimationFrame(eventloop);
 
 }
 
@@ -117,7 +119,7 @@ function blit(x,y,w,h,img){
 //detect everything is loaded
 window.onload = function(){
 	restoredefaults();
-	window.setInterval(eventloop, (1/60)*1000);	
+	eventloop();
 }
 
 
