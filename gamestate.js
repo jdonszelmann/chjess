@@ -3,10 +3,17 @@
 let gamestate = {
 	playerblack:false,
 	cellwidth:undefined,
+
 	paused: false,
+	playing:true,
+	animation:null,
+	animationcounter:-1,
+
 }
 
 
 function switchplayers(){
-	gamestate.playerblack = !gamestate.playerblack;
+	gamestate.animation="rotateboard";
+	gamestate.animationcounter=0;
+
 }
