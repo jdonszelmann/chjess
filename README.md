@@ -2,7 +2,7 @@
 Chess game made with JavaScript and a bit of magic :D
 
 # Single Player Features:
-1. Inteligent AI
+1. Intelligent AI
 2. Highscore list (time, lost pieces)
 3. Learn to play chess mode
 4. 1 vs 1 with friend (board will turn around)
@@ -11,7 +11,7 @@ Chess game made with JavaScript and a bit of magic :D
 
 # Possible Features:
 1. Single player mode & Multiplayer mode
-2. Inteligent AI as an oponent in the single player mode (or as an oponent in a ranked multiplayer mode)
+2. Intelligent AI as an opponent in the single player mode (or as an opponent in a ranked multiplayer mode)
 3. Ranking system for multiplayer
 4. Learn to play chess mode in single player
 5. (All kinds of chess variants)
