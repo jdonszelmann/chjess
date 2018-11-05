@@ -1,17 +1,21 @@
 class Button {
-    constructor (x, y, w, h, text){
-        this.x = x -1;
-        this.y = y -1;
-        this.w = w;
-        this.h = h;
+    constructor (x, y, w, h, text, click) {
+        this.x = (x - 1) * gamestate.cellwidth;
+        this.y = (y - 1) * gamestate.cellwidth;
+        this.w = w * gamestate.cellwidth;
+        this.h = h * gamestate.cellwidth;
         this.text = text;
+        this.clicked = click;
     }
+
     draw(){
-        fill(255);
+        context.beginPath();
+        fill(230,230,230,1);
         update();
         stroke(255);
         strokeWidth(2);
-        rect(this.x*gamestate.cellwidth, this.y*gamestate.cellwidth, this.w*gamestate.cellwidth, this.h*gamestate.cellwidth);
+        rect(this.x, this.y, this.w, this.h);
+        fill(0);
+        writeText(this.x + (this.w/2), this.y+(this.h/2), this.text, this.w);
     }
 }
-let TestButton = new Button(4,4,2,2, "Test");

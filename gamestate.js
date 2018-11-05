@@ -3,6 +3,7 @@
 let gamestate = {
 	playerblack:false,
 	cellwidth:undefined,
+	paused: false,
 }
 
 

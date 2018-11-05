@@ -1,7 +1,8 @@
 
 
 let chessboard;
-
+let mainMenu;
+let activemenus;
 window.onresize = function(){
 	canvas.width = window.innerHeight-50;
 	canvas.height = canvas.width;
@@ -34,8 +35,22 @@ function setup(){
         MouseInput.y = evt.clientY - canvas.offsetTop;
     });
 	canvas.addEventListener("click", function (){
-		MouseInput.detect()
+		MouseInput.detect();
     });
+
+	activemenus = new activeMenus();
+    mainMenu = new Menu("mainMenu", 3,3,4,3, "Main Menu!");
+    mainMenu.addButton("play", 2, 1.5,2,0.5, "Play!", function(){
+    	mainMenu.close();
+	});
+    mainMenu.addButton("quit", 2, 2.1, 2, 0.5, "Quit!", function(){
+    	//alert("Quiting is for losers!");
+		if(confirm("You sure you want to quit? (Quiting is for losers :P)")){
+			//Cant close this tab, because apparently I didnt create it, so i'll
+			// just redirect them to the urban dictionary of the word rage quit
+            open("https://www.urbandictionary.com/define.php?term=ragequit", '_self');
+    	}
+	});
 }
 
 function draw(){
@@ -58,7 +73,7 @@ function draw(){
 	gameboard.get().draw()
 
 
-	TestButton.draw();
+	activemenus.draw();
     MouseInput.draw();
 
 }
