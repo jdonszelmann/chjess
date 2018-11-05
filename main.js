@@ -1,6 +1,8 @@
 
 
-let chessboard;
+let whitechessboard;
+let blackchessboard;
+
 let mainMenu;
 let activemenus;
 window.onresize = function(){
@@ -103,6 +105,6 @@ function draw(){
 		//singleton
 		gameboard.get().draw()
 		MouseInput.draw();
-    activemenus.draw();
+		activemenus.draw();
 	}
 }
