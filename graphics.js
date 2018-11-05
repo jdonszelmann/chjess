@@ -65,10 +65,13 @@ function restoredefaults(){
 
 //sets the background to a color
 function background(r,g=r,b=g,a=1){
+	push();
+	context.resetTransform();
 	fill(r,g,b,a);
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	update();
 	noFill();
+	pop();
 }
 
 //updates the screen. has to happen after every drawn shape
@@ -88,6 +91,7 @@ function line(x1,y1,x2,y2){
 
 //draws a rectangle (square if 3 args given)
 function rect(x,y,w,h=w){
+        console.log("hey");
 	context.beginPath();
 	context.rect(x,y,w,h);
 	update();
@@ -104,12 +108,13 @@ function ellipse(x,y,w,h=w){
 function eventloop(){
 	
 	draw();
-	// update();
-	// restoredefaults();
+	restoredefaults();
 
 	window.requestAnimationFrame(eventloop);
 
 }
+
+
 
 //draw an image on x,y with w,h
 function blit(x,y,w,h,img){
@@ -118,13 +123,14 @@ function blit(x,y,w,h,img){
 
 //detect everything is loaded
 window.onload = function(){
-	restoredefaults();
+	// restoredefaults();
 	eventloop();
 }
 
 
 //start setup asap
 setup();
+
 
 
 
