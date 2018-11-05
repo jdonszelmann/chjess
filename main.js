@@ -22,8 +22,11 @@ function setup(){
 
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
 
-	chessboard = new Image();
-	chessboard.src = "resources/chessboard-white.png"
+	whitechessboard = new Image();
+	whitechessboard.src = "resources/chessboard-black.png"
+
+	blackchessboard = new Image();
+	blackchessboard.src = "resources/chessboard-white.png"
 
 	//Event listeners for mouse-input
     canvas.addEventListener("mousemove", function (evt) {
@@ -38,15 +41,29 @@ function setup(){
 function draw(){
 	
 	//executed 60 times per second after all loads have completed
-	pop();
-	blit(0,0,canvas.width,canvas.height,chessboard)
+	// pop();
+	if(gamestate.playerblack){
+		blit(0,0,canvas.width,canvas.height,blackchessboard);
+	}else{
+		blit(0,0,canvas.width,canvas.height,whitechessboard);
+	}
 
-	ellipse(canvas.width/2,canvas.height/2,50,50);
+	// ellipse(canvas.width/2,canvas.height/2,50,50);
 
-	line(0,0,canvas.width,canvas.height);
+	// line(0,0,canvas.width,canvas.height);
 
-	rect(100,100,100,100);
-	push();
+	// rect(100,100,100,100);
+	// push();
+
+	for(let i of blackpieces){
+		i.draw();
+	}
+
+
+	for(let i of whitepieces){
+		i.draw();
+	}
+
 
 	MouseInput.draw();
 
