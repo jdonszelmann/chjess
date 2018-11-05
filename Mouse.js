@@ -19,7 +19,6 @@ class Mouse {
 
         noFill();
         strokeWidth(1);
-        update();
         ellipse(this.x, this.y, 20);
     }
 
