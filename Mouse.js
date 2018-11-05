@@ -11,7 +11,6 @@ class Mouse {
     }
 
     drawCursor (){
-
         if(gamestate.playerblack){
             stroke(0);
         }else{
@@ -20,18 +19,20 @@ class Mouse {
 
         noFill();
         strokeWidth(1);
+        update();
         ellipse(this.x, this.y, 20);
     }
 
     drawSelectedSquare(){
         if(this.selectedX != -1 && this.selectedY != -1){
             let squareSize = gamestate.cellwidth;
-        if(gamestate.playerblack){
-            stroke(0);
-        }else{
-            stroke(255);
-        }
+            if(gamestate.playerblack){
+                stroke(0);
+            }else{
+                stroke(255);
+            }
             noFill();
+            update();
             strokeWidth(5);
             rect(this.selectedX*squareSize, this.selectedY*squareSize, squareSize);
             strokeWidth(10);

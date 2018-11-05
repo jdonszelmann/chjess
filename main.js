@@ -38,16 +38,22 @@ function setup(){
 function draw(){
 	
 	//executed 60 times per second after all loads have completed
-	pop();
+	push();
 	blit(0,0,canvas.width,canvas.height,chessboard)
-
+	noFill();
 	ellipse(canvas.width/2,canvas.height/2,50,50);
 
 	line(0,0,canvas.width,canvas.height);
-
+	noFill();
 	rect(100,100,100,100);
-	push();
+	pop();
 
+	push();
+    TestButton.draw();
+	pop();
+
+	push();
 	MouseInput.draw();
+	pop();
 
 }
