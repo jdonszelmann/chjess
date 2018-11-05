@@ -3,9 +3,12 @@
 let gamestate = {
 	playerblack:false,
 	cellwidth:undefined,
+
+	paused: false,
 	playing:true,
 	animation:null,
 	animationcounter:-1,
+
 }
 
 

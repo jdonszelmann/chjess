@@ -121,15 +121,21 @@ function blit(x,y,w,h,img){
 	context.drawImage(img, x, y, w, h);
 }
 
+//Put text on screen
+function writeText(x,y, text, max=canvas.width){
+	context.font = "20px monospace";
+	context.textAlign = "center";
+	context.fillText(text, x, y, max);
+}
+
 //detect everything is loaded
 window.onload = function(){
-	// restoredefaults();
 	eventloop();
 }
 
 
 //start setup asap
-setup();
+//setup();
 
 
 
