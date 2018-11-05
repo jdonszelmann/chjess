@@ -32,7 +32,6 @@ class Mouse {
                 stroke(255);
             }
             noFill();
-            update();
             strokeWidth(5);
             rect(this.selectedX*squareSize, this.selectedY*squareSize, squareSize);
         }
