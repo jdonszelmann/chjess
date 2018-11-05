@@ -58,6 +58,7 @@ function draw(){
 	gameboard.get().draw()
 
 
-	MouseInput.draw();
+	TestButton.draw();
+    MouseInput.draw();
 
 }
