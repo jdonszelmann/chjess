@@ -4,6 +4,8 @@ let chessboard;
 
 function setup(){
 
+	setuppieces(); //chesspiece.js
+
 	//graphics lib executes this once at load time
 
 	canvas.width = window.innerHeight-50;
@@ -12,7 +14,7 @@ function setup(){
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
 
 	chessboard = new Image();
-	chessboard.src = "recourses/chessboard.png"
+	chessboard.src = "resources/chessboard.png"
 
 	//Event listeners for mouse-input
     canvas.addEventListener("mousemove", function (evt) {
