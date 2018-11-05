@@ -11,7 +11,12 @@ class Mouse {
     }
 
     drawCursor (){
-        stroke(255);
+
+        if(gamestate.playerblack){
+            stroke(0);
+        }else{
+            stroke(255);
+        }
 
         noFill();
         strokeWidth(1);
@@ -20,8 +25,12 @@ class Mouse {
 
     drawSelectedSquare(){
         if(this.selectedX != -1 && this.selectedY != -1){
-            let squareSize = canvas.width/8;
+            let squareSize = gamestate.cellwidth;
+        if(gamestate.playerblack){
+            stroke(0);
+        }else{
             stroke(255);
+        }
             noFill();
             strokeWidth(5);
             rect(this.selectedX*squareSize, this.selectedY*squareSize, squareSize);
@@ -35,7 +44,7 @@ class Mouse {
     }
 
     detect (){
-        let squareSize = canvas.width/8;
+        let squareSize = gamestate.cellwidth;
         this.selectSquare(
             Math.floor(this.x/squareSize),
             Math.floor(this.y/squareSize)
