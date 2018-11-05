@@ -2,19 +2,28 @@
 
 let chessboard;
 
+window.onresize = function(){
+	canvas.width = window.innerHeight-50;
+	canvas.height = canvas.width;
+
+	gamestate.cellwidth = canvas.width/8;
+}
+
+
 function setup(){
 
-	setuppieces(); //chesspiece.js
 
 	//graphics lib executes this once at load time
 
 	canvas.width = window.innerHeight-50;
 	canvas.height = canvas.width;
 
+	gamestate.cellwidth = canvas.width/8;
+
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
 
 	chessboard = new Image();
-	chessboard.src = "resources/chessboard.png"
+	chessboard.src = "resources/chessboard-white.png"
 
 	//Event listeners for mouse-input
     canvas.addEventListener("mousemove", function (evt) {

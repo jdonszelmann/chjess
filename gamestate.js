@@ -1,0 +1,5 @@
+
+
+let gamestate = {
+	playerblack:false,
+}
