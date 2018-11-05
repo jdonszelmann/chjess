@@ -88,6 +88,7 @@ function line(x1,y1,x2,y2){
 
 //draws a rectangle (square if 3 args given)
 function rect(x,y,w,h=w){
+	context.beginPath();
 	context.rect(x,y,w,h);
 	update();
 }

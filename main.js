@@ -55,14 +55,7 @@ function draw(){
 	// rect(100,100,100,100);
 	// push();
 
-	for(let i of blackpieces){
-		i.draw();
-	}
-
-
-	for(let i of whitepieces){
-		i.draw();
-	}
+	gameboard.get().draw()
 
 
 	MouseInput.draw();
