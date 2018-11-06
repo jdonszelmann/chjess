@@ -10,6 +10,17 @@ class gameboard{
 		this.selectedY = -1;
 	}
 
+	reset(){
+		this.pieces = [];
+		this.moving = null;
+		this.selectedX = -1;
+		this.selectedY = -1;
+		if(gamestate.playerblack){
+			switchplayers();
+		}
+		insertPieces();
+	}
+
 	static get(){
 		if(!gameboard.instance){
 			gameboard.instance = new gameboard;
@@ -158,7 +169,12 @@ class gameboard{
 					MouseInput.selectedY = -1;
 					this.moving = null;
 
-					switchplayers();
+					if(winner == null){
+                        switchplayers();
+					} else {
+                        openMenu("EndGame");
+                    }
+
 
 				}else{
 					MouseInput.selectedX = -1;
