@@ -68,6 +68,7 @@ function background(r,g=r,b=g,a=1){
 	push();
 	context.resetTransform();
 	fill(r,g,b,a);
+	context.beginPath();
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	update();
 	noFill();
@@ -106,8 +107,8 @@ function ellipse(x,y,w,h=w){
 //executed 60 times per second, calls draw and then updates
 function eventloop(){
 	
-	draw();
 	restoredefaults();
+	draw();
 
 	window.requestAnimationFrame(eventloop);
 

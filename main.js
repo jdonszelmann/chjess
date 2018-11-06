@@ -51,6 +51,7 @@ function draw(){
 	
 	//executed 60 times per second after all loads have completed
 
+
 	if(gamestate.animation == "rotateboard"){
 
 
@@ -78,7 +79,7 @@ function draw(){
         activemenus.draw();
 
         let x = 1.2 * Math.sin(((2*Math.PI)/(80+darktime)) * gamestate.animationcounter);
-
+        // let x  = 1;
 
 		if(x > 1){
 			x = 1;
