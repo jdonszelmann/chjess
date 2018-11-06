@@ -147,7 +147,6 @@ class king extends chesspiece{
         } else {
             winner = "Black";
         }
-        openMenu("EndGame");
         this.dead = true;
 	}
 }
@@ -356,38 +355,40 @@ class knight extends chesspiece{
 		return possibilities;
 	}
 }
+function insertPieces() {
+    //default game setup
+    new rook("resources/rook-white.png", 0, 0, false);
+    new knight("resources/knight-white.png", 1, 0, false);
+    new bishop("resources/bishop-white.png", 2, 0, false);
+    new king("resources/king-white.png", 3, 0, false);
+    new queen("resources/queen-white.png", 4, 0, false);
+    new bishop("resources/bishop-white.png", 5, 0, false);
+    new knight("resources/knight-white.png", 6, 0, false);
+    new rook("resources/rook-white.png", 7, 0, false);
+    new pawn("resources/pawn-white.png", 0, 1, false);
+    new pawn("resources/pawn-white.png", 1, 1, false);
+    new pawn("resources/pawn-white.png", 2, 1, false);
+    new pawn("resources/pawn-white.png", 3, 1, false);
+    new pawn("resources/pawn-white.png", 4, 1, false);
+    new pawn("resources/pawn-white.png", 5, 1, false);
+    new pawn("resources/pawn-white.png", 6, 1, false);
+    new pawn("resources/pawn-white.png", 7, 1, false);
 
-//default game setup
-new rook("resources/rook-white.png",0,0,false);
-new knight("resources/knight-white.png",1,0,false);
-new bishop("resources/bishop-white.png",2,0,false);
-new king("resources/king-white.png",3,0,false);
-new queen("resources/queen-white.png",4,0,false);
-new bishop("resources/bishop-white.png",5,0,false);
-new knight("resources/knight-white.png",6,0,false);
-new rook("resources/rook-white.png",7,0,false);
-new pawn("resources/pawn-white.png",0,1,false);
-new pawn("resources/pawn-white.png",1,1,false);
-new pawn("resources/pawn-white.png",2,1,false);
-new pawn("resources/pawn-white.png",3,1,false);
-new pawn("resources/pawn-white.png",4,1,false);
-new pawn("resources/pawn-white.png",5,1,false);
-new pawn("resources/pawn-white.png",6,1,false);
-new pawn("resources/pawn-white.png",7,1,false);
-
-new rook("resources/rook-black.png",0,7,true);
-new knight("resources/knight-black.png",1,7,true);
-new bishop("resources/bishop-black.png",2,7,true);
-new king("resources/king-black.png",3,7,true);
-new queen("resources/queen-black.png",4,7,true);
-new bishop("resources/bishop-black.png",5,7,true);
-new knight("resources/knight-black.png",6,7,true);
-new rook("resources/rook-black.png",7,7,true);
-new pawn("resources/pawn-black.png",0,6,true);
-new pawn("resources/pawn-black.png",1,6,true);
-new pawn("resources/pawn-black.png",2,6,true);
-new pawn("resources/pawn-black.png",3,6,true);
-new pawn("resources/pawn-black.png",4,6,true);
-new pawn("resources/pawn-black.png",5,6,true);
-new pawn("resources/pawn-black.png",6,6,true);
-new pawn("resources/pawn-black.png",7,6,true);
+    new rook("resources/rook-black.png", 0, 7, true);
+    new knight("resources/knight-black.png", 1, 7, true);
+    new bishop("resources/bishop-black.png", 2, 7, true);
+    new king("resources/king-black.png", 3, 7, true);
+    new queen("resources/queen-black.png", 4, 7, true);
+    new bishop("resources/bishop-black.png", 5, 7, true);
+    new knight("resources/knight-black.png", 6, 7, true);
+    new rook("resources/rook-black.png", 7, 7, true);
+    new pawn("resources/pawn-black.png", 0, 6, true);
+    new pawn("resources/pawn-black.png", 1, 6, true);
+    new pawn("resources/pawn-black.png", 2, 6, true);
+    new pawn("resources/pawn-black.png", 3, 6, true);
+    new pawn("resources/pawn-black.png", 4, 6, true);
+    new pawn("resources/pawn-black.png", 5, 6, true);
+    new pawn("resources/pawn-black.png", 6, 6, true);
+    new pawn("resources/pawn-black.png", 7, 6, true);
+}
+insertPieces();

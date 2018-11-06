@@ -10,6 +10,19 @@ class gameboard{
 		this.selectedY = -1;
 	}
 
+	reset(){
+		this.pieces = [];
+		this.moving = null;
+		this.selectedX = -1;
+		this.selectedY = -1;
+		if(gamestate.playerblack){
+			gamestate.playerblack = false;
+		}
+		gamestate.animation = null;
+		gamestate.animationcounter = 0;
+		insertPieces();
+	}
+
 	static get(){
 		if(!gameboard.instance){
 			gameboard.instance = new gameboard;
@@ -147,9 +160,13 @@ class gameboard{
 							movepiece(7-MouseInput.selectedX,7-MouseInput.selectedY,piece);
 						}
 
+
+
+
 						if(piece.move){
 							piece.move();
 						}
+
 
 
 						//stop moving, reset all
@@ -158,6 +175,10 @@ class gameboard{
 						MouseInput.selectedX = -1;
 						MouseInput.selectedY = -1;
 						this.moving = null;
+
+						if(winner != null){
+                            openMenu("EndGame");
+                        }
 
 
 					}else{

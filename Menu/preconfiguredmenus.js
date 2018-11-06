@@ -39,17 +39,37 @@ let preconfiguredmenus= {
             mainMenuTab.activate();
             gamestate.paused = false;
         });
-        mainMenuInGame.addButton("quit game", 2, 2.1, 2, 0.5, "Quit this game!", function(){
+        mainMenuInGame.addButton("newGame", 2,2.1,2,0.5, "New Game", function(){
+            if(confirm("If you start a new game you will end this one. Are you sure?")){
+                gameboard.get().reset();
+                mainMenuInGame.deactivate();
+                mainMenuTab.activate();
+                gamestate.paused = false;
+            }
+        });
+        mainMenuInGame.addButton("backToMainMenu", 2, 2.7, 2, 0.5, "Go back to main menu!", function(){
             if(confirm("Are you sure you want to quit this game?")){
-                open(location, '_self');
+                gameboard.get().reset();
+                mainMenuInGame.deactivate();
+                mainMenu.activate();
             }
         });
     },
     "EndGame": function () {
-        EndGame = new Menu("EndGame", 3,3.5,4,1.5, winner + " won this game! Congratulations!");
+        EndGame = new Menu("EndGame", 3,3.5,4,1.7, winner + " won this game! Congratulations!");
         EndGame.addButton("newGame", 2, 1.5, 2, 0.5, "New Game!", function () {
-            open(location, '_self');
-        })
+            winner = null;
+            gameboard.get().reset();
+            EndGame.deactivate();
+            mainMenuTab.activate();
+            gamestate.paused = false;
+        });
+        EndGame.addButton("backToMainMenu", 2, 2.1, 2, 0.5, "Back to main menu!", function(){
+            winner=null;
+            gameboard.get().reset();
+            EndGame.deactivate();
+            mainMenu.activate();
+        });
         EndGame.activate();
     }
 }
