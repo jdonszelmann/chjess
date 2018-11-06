@@ -2,8 +2,7 @@
 
 let whitechessboard;
 let blackchessboard;
-let winner;
-
+let winner = null;
 
 let activemenus;
 window.onresize = function(){
