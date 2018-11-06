@@ -85,7 +85,44 @@ function draw(){
 
 		background(51,51,51,x);
 
-	}else if(false){
+	}else if(gamestate.animation == "movepiece"){
+
+		function lerp(a, b, n) {
+			return (1 - n) * a + n * b;
+		}
+
+		let length = 20;
+
+		gamestate.animationcounter++;
+
+		//linearly interpolate between src and dst
+		let newx = lerp(gamestate.src[0],gamestate.dst[0],gamestate.animationcounter/length);
+		let newy = lerp(gamestate.src[1],gamestate.dst[1],gamestate.animationcounter/length);
+
+		// console.log([newx,newy]	,gamestate.src,gamestate.dst);
+
+		gamestate.piecemoving.x = newx;
+		gamestate.piecemoving.y = newy;
+
+
+		if(gamestate.animationcounter == length-1){
+			gamestate.animation = "rotateboard";
+			gamestate.animationcounter = 0; 
+			
+			gamestate.piecemoving.x = gamestate.dst[0];
+			gamestate.piecemoving.y = gamestate.dst[1];
+		}
+
+
+		if(gamestate.playerblack){
+			blit(0,0,canvas.width,canvas.height,blackchessboard);
+		}else{
+			blit(0,0,canvas.width,canvas.height,whitechessboard);
+		}
+
+		gameboard.get().draw(nomovedetect=true)
+		MouseInput.draw();
+		activemenus.draw();
 
 	}else{
 		if(gamestate.playerblack){
