@@ -17,8 +17,9 @@ class gameboard{
 		this.selectedY = -1;
 		if(gamestate.playerblack){
 			gamestate.playerblack = false;
-			gamestate.animation= null;
 		}
+		gamestate.animation = null;
+		gamestate.animationcounter = 0;
 		insertPieces();
 	}
 
