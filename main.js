@@ -25,6 +25,9 @@ function setup(){
 
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
 
+	//make room for chesscounter
+	canvas.style.marginTop = 30;
+
 	whitechessboard = new Image();
 	whitechessboard.src = "resources/chessboard-black.png"
 
