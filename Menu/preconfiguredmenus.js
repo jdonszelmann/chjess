@@ -58,7 +58,7 @@ let preconfiguredmenus= {
     "EndGame": function () {
         EndGame = new Menu("EndGame", 3,3.5,4,1.7, winner + " won this game! Congratulations!");
         EndGame.addButton("newGame", 2, 1.5, 2, 0.5, "New Game!", function () {
-            winner=null;
+            winner = null;
             gameboard.get().reset();
             EndGame.deactivate();
             mainMenuTab.activate();
