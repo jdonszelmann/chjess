@@ -16,7 +16,8 @@ class gameboard{
 		this.selectedX = -1;
 		this.selectedY = -1;
 		if(gamestate.playerblack){
-			switchplayers();
+			gamestate.playerblack = false;
+			gamestate.animation= null;
 		}
 		insertPieces();
 	}
@@ -159,11 +160,7 @@ class gameboard{
 						}
 
 
-					  if(winner == null){
-              switchplayers();
-					  } else {
-              openMenu("EndGame");
-            }
+
 
 						if(piece.move){
 							piece.move();
@@ -177,6 +174,10 @@ class gameboard{
 						MouseInput.selectedX = -1;
 						MouseInput.selectedY = -1;
 						this.moving = null;
+
+						if(winner != null){
+                            openMenu("EndGame");
+                        }
 
 
 					}else{

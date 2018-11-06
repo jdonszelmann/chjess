@@ -50,7 +50,7 @@ function draw(){
 	
 	//executed 60 times per second after all loads have completed
 
-	if(gamestate.animation == "rotateboard"){
+	if(gamestate.animation == "rotateboard" && winner==null){
 
 
 		let darktime = 50;
@@ -107,8 +107,8 @@ function draw(){
 
 		if(gamestate.animationcounter == length-1){
 			gamestate.animation = "rotateboard";
-			gamestate.animationcounter = 0; 
-			
+			gamestate.animationcounter = 0;
+
 			gamestate.piecemoving.x = gamestate.dst[0];
 			gamestate.piecemoving.y = gamestate.dst[1];
 		}
