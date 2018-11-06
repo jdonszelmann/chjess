@@ -52,7 +52,6 @@ function draw(){
 
 	if(gamestate.animation == "rotateboard" && winner==null){
 
-
 		let darktime = 50;
 
 		gamestate.animationcounter++;
@@ -77,7 +76,7 @@ function draw(){
         activemenus.draw();
 
         let x = 1.2 * Math.sin(((2*Math.PI)/(80+darktime)) * gamestate.animationcounter);
-
+        // let x  = 1;
 
 		if(x > 1){
 			x = 1;
