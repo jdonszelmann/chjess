@@ -141,6 +141,15 @@ class king extends chesspiece{
 
 		return possibilities;
 	}
+	kill(){
+        if(this.blackpiece){
+            winner = "White";
+        } else {
+            winner = "Black";
+        }
+        openMenu("EndGame");
+        this.dead = true;
+	}
 }
 
 class queen extends chesspiece{

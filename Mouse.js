@@ -49,10 +49,15 @@ class Mouse {
         if(gamestate.paused){
             activemenus.checkForButtons(this.x,this.y);
         } else {
-            this.selectSquare(
-                Math.floor(this.x/gamestate.cellwidth),
-                Math.floor(this.y/gamestate.cellwidth)
-            );
+            if(this.x>7.5*gamestate.cellwidth && this.x<8*gamestate.cellwidth && this.y>0 && this.y<0.5*gamestate.cellwidth){
+                mainMenuTab.buttons["openMainMenu"].clicked();
+            } else {
+                this.selectSquare(
+                    Math.floor(this.x/gamestate.cellwidth),
+                    Math.floor(this.y/gamestate.cellwidth)
+                );
+            }
+
         }
     }
 }
