@@ -11,15 +11,16 @@ class Mouse {
     }
 
     drawCursor (){
-        if(gamestate.playerblack){
-            stroke(0);
-        }else{
-            stroke(255);
-        }
+        // if(gamestate.playerblack){
+        //     stroke(0);
+        // }else{
+        //     stroke(255);
+        // }
 
-        noFill();
-        strokeWidth(1);
-        ellipse(this.x, this.y, 20);
+
+        // noFill();
+        // strokeWidth(1);
+        // ellipse(this.x, this.y, 20);
     }
 
     drawSelectedSquare(){
@@ -38,6 +39,7 @@ class Mouse {
     }
 
     selectSquare(x,y){
+        //unselect
         this.selectedX = x;
         this.selectedY = y;
     }

@@ -65,10 +65,13 @@ function restoredefaults(){
 
 //sets the background to a color
 function background(r,g=r,b=g,a=1){
+	push();
+	context.resetTransform();
 	fill(r,g,b,a);
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	update();
 	noFill();
+	pop();
 }
 
 //updates the screen. has to happen after every drawn shape
@@ -104,12 +107,13 @@ function ellipse(x,y,w,h=w){
 function eventloop(){
 	
 	draw();
-	// update();
-	// restoredefaults();
+	restoredefaults();
 
 	window.requestAnimationFrame(eventloop);
 
 }
+
+
 
 //draw an image on x,y with w,h
 function blit(x,y,w,h,img){
@@ -125,14 +129,13 @@ function writeText(x,y, text, max=canvas.width){
 
 //detect everything is loaded
 window.onload = function(){
-	setup();
-	restoredefaults();
 	eventloop();
 }
 
 
 //start setup asap
-//setup();
+setup();
+
 
 
 

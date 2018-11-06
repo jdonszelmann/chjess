@@ -1,6 +1,8 @@
 
 
-let chessboard;
+let whitechessboard;
+let blackchessboard;
+
 let mainMenu;
 let activemenus;
 window.onresize = function(){
@@ -56,24 +58,53 @@ function setup(){
 function draw(){
 	
 	//executed 60 times per second after all loads have completed
-	// pop();
-	if(gamestate.playerblack){
-		blit(0,0,canvas.width,canvas.height,blackchessboard);
+
+	if(gamestate.animation == "rotateboard"){
+
+
+		let darktime = 50;
+
+		gamestate.animationcounter++;
+
+		if(gamestate.animationcounter == Math.round(20 + darktime/8)){
+			gamestate.playerblack = !gamestate.playerblack;
+		}
+
+		if(gamestate.animationcounter == 40 + darktime){
+			gamestate.animation = null;			
+		}
+
+		if(gamestate.playerblack){
+			blit(0,0,canvas.width,canvas.height,blackchessboard);
+		}else{
+			blit(0,0,canvas.width,canvas.height,whitechessboard);
+		}
+
+		// singleton
+		gameboard.get().draw()
+		MouseInput.draw();
+
+		let x = 1.2 * Math.sin(((2*Math.PI)/(80+darktime)) * gamestate.animationcounter);
+
+
+		if(x > 1){
+			x = 1;
+		}
+
+		background(51,51,51,x);
+
+	}else if(false){
+
 	}else{
-		blit(0,0,canvas.width,canvas.height,whitechessboard);
+		if(gamestate.playerblack){
+			blit(0,0,canvas.width,canvas.height,blackchessboard);
+		}else{
+			blit(0,0,canvas.width,canvas.height,whitechessboard);
+		}
+
+		//singleton
+		gameboard.get().draw()
+		MouseInput.draw();
+		activemenus.draw();
 	}
-
-	// ellipse(canvas.width/2,canvas.height/2,50,50);
-
-	// line(0,0,canvas.width,canvas.height);
-
-	// rect(100,100,100,100);
-	// push();
-
-	gameboard.get().draw()
-
-
-	activemenus.draw();
-    MouseInput.draw();
-
 }
