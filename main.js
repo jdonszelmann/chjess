@@ -111,7 +111,8 @@ function draw(){
 		}
 
 		if(gamestate.animationcounter == 40 + darktime){
-			gamestate.animation = null;			
+			gamestate.animation = null;
+
 		}
 
 		if(gamestate.playerblack){
@@ -124,6 +125,7 @@ function draw(){
 		gameboard.get().draw()
 		MouseInput.draw();
         activemenus.draw();
+        gameboard.get().isItCheckMate();
 
         let x = 1.2 * Math.sin(((2*Math.PI)/(80+darktime)) * gamestate.animationcounter);
 
