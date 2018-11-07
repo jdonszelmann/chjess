@@ -107,7 +107,7 @@ class gameboard{
 				//and the selected square
 				noFill();
 				strokeWidth(5);
-				stroke(250,0,0)
+				stroke(128,0,0);
 				rect(this.selectedX*gamestate.cellwidth, this.selectedY*gamestate.cellwidth, gamestate.cellwidth,);
 
 
@@ -176,7 +176,7 @@ class gameboard{
 						MouseInput.selectedY = -1;
 						this.moving = null;
 
-						if(winner != null){
+						if(gamestate.winner != null){
                             openMenu("EndGame");
                         }
 

@@ -2,20 +2,57 @@
 
 let whitechessboard;
 let blackchessboard;
-let winner = null;
 
 let activemenus;
+
 window.onresize = function(){
 	canvas.width = window.innerHeight-50;
 	canvas.height = canvas.width;
 
 	gamestate.cellwidth = canvas.width/8;
+
+	openMenu("Main Menu");
+	openMenu("Main Menu Tab");
+	openMenu("Main Menu InGame");
+	openMenu("settings");
+	openMenu("confirm");
+	openMenu("confirm2");
+	chessclock.get().reload();
+}
+
+//listening to zoom events
+window.onzoom = function() {
+	canvas.width = window.innerHeight-50;
+	canvas.height = canvas.width;
+
+	gamestate.cellwidth = canvas.width/8;
+	
+	openMenu("Main Menu");
+	openMenu("Main Menu Tab");
+	openMenu("Main Menu InGame");
+	openMenu("settings");
+	openMenu("confirm");
+	openMenu("confirm2");
+	chessclock.get().reload();
+};
+
+// detect resize
+let pixelratio = 0;
+function pollresize() {
+	let newpixelratio = (window.outerWidth - 8) / window.innerWidth;
+	if(newpixelratio != pixelratio){
+		window.onzoom();
+		pixelratio = newpixelratio;
+		if((pixelratio < 0.8 || pixelratio > 1.8)){
+			alert("for a better experience, please change your zoom level closer to 100%");
+		}
+	}
 }
 
 
+window.setInterval(pollresize, 100);
+
 function setup(){
-
-
 	//graphics lib executes this once at load time
 
 	canvas.width = window.innerHeight-50;
@@ -24,15 +61,16 @@ function setup(){
 	gamestate.cellwidth = canvas.width/8;
 
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
-
-	//make room for chesscounter
-	canvas.style.marginTop = 30;
+	document.getElementsByTagName("body")[0].style.backgroundColor = "rgb(51,51,51)"
 
 	whitechessboard = new Image();
 	whitechessboard.src = "resources/chessboard-black.png"
 
 	blackchessboard = new Image();
 	blackchessboard.src = "resources/chessboard-white.png"
+
+	//make room for chessclock
+	canvas.style.marginTop = 30;
 
 	//Event listeners for mouse-input
     canvas.addEventListener("mousemove", function (evt) {
@@ -47,13 +85,22 @@ function setup(){
 	openMenu("Main Menu");
 	openMenu("Main Menu Tab");
 	openMenu("Main Menu InGame");
+	openMenu("settings");
+	openMenu("confirm");
+	openMenu("confirm2");
+
+
+	let ratio = (window.outerWidth - 8) / window.innerWidth;
+	if(ratio < 0.8 || ratio > 1.8){
+		alert("for a better experience, please change your zoom level closer to 100%");
+	}
 }
 
 function draw(){
 	
 	//executed 60 times per second after all loads have completed
 
-	if(gamestate.animation == "rotateboard" && winner==null){
+	if(gamestate.animation == "rotateboard" && gamestate.winner==null){
 
 		let darktime = 50;
 
@@ -79,7 +126,6 @@ function draw(){
         activemenus.draw();
 
         let x = 1.2 * Math.sin(((2*Math.PI)/(80+darktime)) * gamestate.animationcounter);
-        // let x  = 1;
 
 		if(x > 1){
 			x = 1;

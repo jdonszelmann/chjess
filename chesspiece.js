@@ -54,13 +54,14 @@ class chesspiece{
 					i.y*gamestate.cellwidth,
 					x*gamestate.cellwidth,
 					y*gamestate.cellwidth,
-				) * 0.5
+				) * 0.3
 
-
-				stroke(0,255 - o,255 - o);
-				fill(0,255 - o,255 - o,0.35);
-				strokeWidth(4);
-				rect((i.x)*gamestate.cellwidth,(i.y)*gamestate.cellwidth,gamestate.cellwidth,gamestate.cellwidth);
+				if(gamestate.movehelper){
+					stroke(0,255 - o,255 - o);
+					fill(0,255 - o*1.4,255 - o*1.4,0.35);
+					strokeWidth(4);
+					rect((i.x)*gamestate.cellwidth,(i.y)*gamestate.cellwidth,gamestate.cellwidth,gamestate.cellwidth);
+				}
 			}
 		}
 	}
@@ -143,9 +144,9 @@ class king extends chesspiece{
 	}
 	kill(){
         if(this.blackpiece){
-            winner = "White";
+            gamestate.winner = "White";
         } else {
-            winner = "Black";
+            gamestate.winner = "Black";
         }
         this.dead = true;
 	}

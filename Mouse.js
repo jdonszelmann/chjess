@@ -11,6 +11,8 @@ class Mouse {
     }
 
     drawCursor (){
+        activemenus.checkForButtonsHover(this.x,this.y);
+
         // if(gamestate.playerblack){
         //     stroke(0);
         // }else{
