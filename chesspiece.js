@@ -78,36 +78,92 @@ class bishop extends chesspiece{
 	options(){
 		let possibilities = [];
 		let gm = gameboard.get().constructgamemap();
+		gameboard.get().saveTheKing();
+		let possible = gameboard.get().kingNotInDanger(this);
+		if(possible[0]) {
+            //topright
+            for (let i = this.x + 1, j = this.y + 1; i <= 7 && j <= 7; i++, j++) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //bottomright
+            for (let i = this.x + 1, j = this.y - 1; i <= 7 && j >= 0; i++, j--) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //topleft
+            for (let i = this.x - 1, j = this.y + 1; i >= 0 && j <= 7; i--, j++) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //bottomleft
+            for (let i = this.x - 1, j = this.y - 1; i >= 0 && j >= 0; i--, j--) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+        } else if (possible[1] == "x+y+" || possible[1] == "x-y-"){
+            //topright
+            for (let i = this.x + 1, j = this.y + 1; i <= 7 && j <= 7; i++, j++) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //bottomleft
+            for (let i = this.x - 1, j = this.y - 1; i >= 0 && j >= 0; i--, j--) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+		} else if (possible[1] == "x+y-" || possible[1] == "x-y+"){
+            //bottomright
+            for (let i = this.x + 1, j = this.y - 1; i <= 7 && j >= 0; i++, j--) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //topleft
+            for (let i = this.x - 1, j = this.y + 1; i >= 0 && j <= 7; i--, j++) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+		}
 
+        possibilities = possibilities.filter(function(x){
+            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+                return x;
+            }
+        });
 
-		//topright
-		for(let i = this.x + 1,j = this.y + 1; i <= 7 && j <= 7; i++,j++){
-			possibilities.push({x:i,y:j});
-			if(gm[i][j] != null){break;}
-		}
-		//bottomleft
-		for(let i = this.x + 1,j = this.y - 1; i <= 7 && j >= 0; i++,j--){
-			possibilities.push({x:i,y:j});
-			if(gm[i][j] != null){break;}
-		}
-		//topright
-		for(let i = this.x - 1,j = this.y + 1; i >= 0 && j <= 7; i--,j++){
-			possibilities.push({x:i,y:j});
-			if(gm[i][j] != null){break;}
-		}
-		//bottomright
-		for(let i = this.x - 1,j = this.y - 1; i >= 0 && j >= 0; i--,j--){
-			possibilities.push({x:i,y:j});
-			if(gm[i][j] != null){break;}
-		}
+        if (!gamestate.playerblack) {
+            for (let i of possibilities) {
+                i.x = 7 - i.x;
+                i.y = 7 - i.y;
+            }
+        }
 
-
-		if(!gamestate.playerblack){
-			for(let i of possibilities){
-				i.x = 7-i.x;
-				i.y = 7-i.y;
-			}
-		}
+        let saveKing = gameboard.get().saveTheKing();
+        if(!saveKing[0]){
+            possibilities = possibilities.filter(function(possibility){
+                for(let option of saveKing[1]){
+                    if(option[0]==possibility.x && option[1]==possibility.y){
+                        return possibility;
+                    }
+                }
+            });
+        }
 
 		return possibilities;
 	}
@@ -121,15 +177,32 @@ class king extends chesspiece{
 	options(){
 		let possibilities = [];
 		let gm = gameboard.get().constructgamemap();
+        let save = [false, false, false, false, false, false, false, false];
 
-		possibilities.push({x:this.x,y:this.y+1});
-		possibilities.push({x:this.x+1,y:this.y+1});
-		possibilities.push({x:this.x-1,y:this.y+1});
-		possibilities.push({x:this.x-1,y:this.y});
-		possibilities.push({x:this.x+1,y:this.y});
-		possibilities.push({x:this.x-1,y:this.y-1});
-		possibilities.push({x:this.x,y:this.y-1});
-		possibilities.push({x:this.x+1,y:this.y-1});
+		if(gameboard.get().tileSaveForKing(this.x+1, this.y-1, this)[0]){
+            possibilities.push({x:this.x+1,y:this.y-1});
+        }
+       	if(gameboard.get().tileSaveForKing(this.x-1, this.y+1, this)[0]) {
+            possibilities.push({x: this.x - 1, y: this.y + 1});
+        }
+	    if(gameboard.get().tileSaveForKing(this.x-1, this.y-1, this)[0]) {
+            possibilities.push({x: this.x - 1, y: this.y - 1});
+	    }
+	    if(gameboard.get().tileSaveForKing(this.x+1, this.y+1, this)[0]) {
+            possibilities.push({x: this.x + 1, y: this.y + 1});
+	    }
+	    if(gameboard.get().tileSaveForKing(this.x, this.y+1, this)[0]) {
+            possibilities.push({x: this.x, y: this.y + 1});
+	    }
+	    if(gameboard.get().tileSaveForKing(this.x-1, this.y, this)[0]) {
+            possibilities.push({x: this.x - 1, y: this.y});
+	    }
+	    if(gameboard.get().tileSaveForKing(this.x+1, this.y, this)[0]) {
+            possibilities.push({x: this.x + 1, y: this.y});
+	    }
+	    if(gameboard.get().tileSaveForKing(this.x, this.y-1, this)[0]) {
+            possibilities.push({x: this.x, y: this.y - 1});
+	    }
 
 
 		if(!gamestate.playerblack){
@@ -159,51 +232,116 @@ class queen extends chesspiece{
 	options(){
 		let possibilities = [];
 		let gm = gameboard.get().constructgamemap();
+        let possible = gameboard.get().kingNotInDanger(this);
 
+        if(possible[0]) {
+            //right
+            for(let i = this.x + 1; i <= 7; i++){
+                possibilities.push({x: i, y: this.y});
+                if(gm[i][this.y] != null){break;}
+            }
+            //left
+            for(let i = this.x - 1; i >= 0; i--){
+                possibilities.push({x: i, y: this.y});
+                if(gm[i][this.y] != null){break;}
+            }
+            //down
+            for(let i = this.y + 1; i <= 7; i++){
+                possibilities.push({x: this.x, y: i});
+                if(gm[this.x][i] != null){break;}
+            }
+            //up
+            for(let i = this.y - 1; i >= 0; i--){
+                possibilities.push({x: this.x, y: i});
+                if(gm[this.x][i] != null){break;}
+            }
+            //topright
+            for (let i = this.x + 1, j = this.y + 1; i <= 7 && j <= 7; i++, j++) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //bottomright
+            for (let i = this.x + 1, j = this.y - 1; i <= 7 && j >= 0; i++, j--) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //topleft
+            for (let i = this.x - 1, j = this.y + 1; i >= 0 && j <= 7; i--, j++) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //bottomleft
+            for (let i = this.x - 1, j = this.y - 1; i >= 0 && j >= 0; i--, j--) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+        } else if (possible[1] == "x+y+" || possible[1] == "x-y-"){
+            //topright
+            for (let i = this.x + 1, j = this.y + 1; i <= 7 && j <= 7; i++, j++) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //bottomleft
+            for (let i = this.x - 1, j = this.y - 1; i >= 0 && j >= 0; i--, j--) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+        } else if (possible[1] == "x+y-" || possible[1] == "x-y+"){
+            //bottomright
+            for (let i = this.x + 1, j = this.y - 1; i <= 7 && j >= 0; i++, j--) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+            //topleft
+            for (let i = this.x - 1, j = this.y + 1; i >= 0 && j <= 7; i--, j++) {
+                possibilities.push({x: i, y: j});
+                if (gm[i][j] != null) {
+                    break;
+                }
+            }
+        } else if (possible[1] == "y"){
+            //down
+            for(let i = this.y + 1; i <= 7; i++){
+                possibilities.push({x: this.x, y: i});
+                if(gm[this.x][i] != null){break;}
+            }
+            //up
+            for(let i = this.y - 1; i >= 0; i--){
+                possibilities.push({x: this.x, y: i});
+                if(gm[this.x][i] != null){break;}
+            }
+		} else if (possible[1] == "x"){
+            //right
+            for(let i = this.x + 1; i <= 7; i++){
+                possibilities.push({x: i, y: this.y});
+                if(gm[i][this.y] != null){break;}
+            }
+            //left
+            for(let i = this.x - 1; i >= 0; i--){
+                possibilities.push({x: i, y: this.y});
+                if(gm[i][this.y] != null){break;}
+            }
+		}
 
-		//left
-		for(let i = this.x + 1; i <= 7; i++){
-			possibilities.push({x:i,y:this.y});
-			if(gm[i][this.y] != null){break;}
-		}
-		//right
-		for(let i = this.x - 1; i >= 0; i--){
-			possibilities.push({x:i,y:this.y});
-			if(gm[i][this.y] != null){break;}
-		}
-		//up
-		for(let i = this.y + 1; i <= 7; i++){
-			possibilities.push({x:this.x,y:i});
-			if(gm[this.x][i] != null){break;}
-		}
-		//down
-		for(let i = this.y - 1; i >= 0; i--){
-			possibilities.push({x:this.x,y:i});
-			if(gm[this.x][i] != null){break;}
-		}
-
-		//topright
-		for(let i = this.x + 1,j = this.y + 1; i <= 7 && j <= 7; i++,j++){
-			possibilities.push({x:i,y:j});
-			if(gm[i][j] != null){break;}
-		}
-		//bottomleft
-		for(let i = this.x + 1,j = this.y - 1; i <= 7 && j >= 0; i++,j--){
-			possibilities.push({x:i,y:j});
-			if(gm[i][j] != null){break;}
-		}
-		//topright
-		for(let i = this.x - 1,j = this.y + 1; i >= 0 && j <= 7; i--,j++){
-			possibilities.push({x:i,y:j});
-			if(gm[i][j] != null){break;}
-		}
-		//bottomright
-		for(let i = this.x - 1,j = this.y - 1; i >= 0 && j >= 0; i--,j--){
-			possibilities.push({x:i,y:j});
-			if(gm[i][j] != null){break;}
-		}
-
-
+        possibilities = possibilities.filter(function(x){
+            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+                return x;
+            }
+        });
 
 		if(!gamestate.playerblack){
 			for(let i of possibilities){
@@ -212,6 +350,16 @@ class queen extends chesspiece{
 			}
 		}
 
+        let saveKing = gameboard.get().saveTheKing();
+        if(!saveKing[0]){
+            possibilities = possibilities.filter(function(possibility){
+                for(let option of saveKing[1]){
+                    if(option[0]==possibility.x && option[1]==possibility.y){
+                        return possibility;
+                    }
+                }
+            });
+        }
 		return possibilities;
 	}
 }
@@ -221,31 +369,69 @@ class rook extends chesspiece{
 		super(filename,x,y,blackpiece);
 	}
 
-	options(){
-		let possibilities = [];
-		let gm = gameboard.get().constructgamemap();
+	options() {
+        let possibilities = [];
+        let gm = gameboard.get().constructgamemap();
+		let possible = gameboard.get().kingNotInDanger(this);
+		if(possible[0]){
+        //right
+        for (let i = this.x + 1; i <= 7; i++) {
+            possibilities.push({x: i, y: this.y});
+            if (gm[i][this.y] != null) {
+                break;
+            }
+        }
+        //left
+        for (let i = this.x - 1; i >= 0; i--) {
+            possibilities.push({x: i, y: this.y});
+            if (gm[i][this.y] != null) {
+                break;
+            }
+        }
+        //down
+        for (let i = this.y + 1; i <= 7; i++) {
+            possibilities.push({x: this.x, y: i});
+            if (gm[this.x][i] != null) {
+                break;
+            }
+        }
+        //up
+        for (let i = this.y - 1; i >= 0; i--) {
+            possibilities.push({x: this.x, y: i});
+            if (gm[this.x][i] != null) {
+                break;
+            }
+        }
 
+    	}else if (possible[1] == "y"){
+            //down
+            for(let i = this.y + 1; i <= 7; i++){
+                possibilities.push({x:this.x,y:i});
+                if(gm[this.x][i] != null){break;}
+            }
+            //up
+            for(let i = this.y - 1; i >= 0; i--){
+                possibilities.push({x:this.x,y:i});
+                if(gm[this.x][i] != null){break;}
+            }
+        } else if (possible[1] == "x"){
+            //right
+            for(let i = this.x + 1; i <= 7; i++){
+                possibilities.push({x:i,y:this.y});
+                if(gm[i][this.y] != null){break;}
+            }
+            //left
+            for(let i = this.x - 1; i >= 0; i--){
+                possibilities.push({x:i,y:this.y});
+                if(gm[i][this.y] != null){break;}
+            }
+        }
 
-		//left
-		for(let i = this.x + 1; i <= 7; i++){
-			possibilities.push({x:i,y:this.y});
-			if(gm[i][this.y] != null){break;}
-		}
-		//right
-		for(let i = this.x - 1; i >= 0; i--){
-			possibilities.push({x:i,y:this.y});
-			if(gm[i][this.y] != null){break;}
-		}
-		//up
-		for(let i = this.y + 1; i <= 7; i++){
-			possibilities.push({x:this.x,y:i});
-			if(gm[this.x][i] != null){break;}
-		}
-		//down
-		for(let i = this.y - 1; i >= 0; i--){
-			possibilities.push({x:this.x,y:i});
-			if(gm[this.x][i] != null){break;}
-		}
+        possibilities = possibilities.filter(function(x){
+            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+                return x;
+            }
+        });
 
 		if(!gamestate.playerblack){
 			for(let i of possibilities){
@@ -253,6 +439,17 @@ class rook extends chesspiece{
 				i.y = 7-i.y;
 			}
 		}
+
+        let saveKing = gameboard.get().saveTheKing();
+        if(!saveKing[0]){
+            possibilities = possibilities.filter(function(possibility){
+                for(let option of saveKing[1]){
+                    if(option[0]==possibility.x && option[1]==possibility.y){
+                        return possibility;
+                    }
+                }
+            });
+        }
 
 		return possibilities;
 	}
@@ -272,53 +469,128 @@ class pawn extends chesspiece{
 		let gm = gameboard.get().constructgamemap();
 		
 		let possibilities = [];
-
+		let possible = gameboard.get().kingNotInDanger(this);
 		if(!gamestate.playerblack){
-			if(gm[this.x][this.y+1] == null){
-				possibilities.push({x:this.x,y:this.y+1});
+			if(possible[0]) {
+                if (gm[this.x][this.y + 1] == null) {
+                    possibilities.push({x: this.x, y: this.y + 1});
 
-				if(!this.moved){
+                    if (!this.moved) {
 
-					if(gm[this.x][this.y+2] == null){
-						possibilities.push({x:this.x,y:this.y+2});		
-					}	
-				}
+                        if (gm[this.x][this.y + 2] == null) {
+                            possibilities.push({x: this.x, y: this.y + 2});
+                        }
+                    }
+                }
+
+                if (this.x < 7 && this.y < 7 && gm[this.x + 1][this.y + 1] instanceof chesspiece) {
+                    possibilities.push({x: this.x + 1, y: this.y + 1});
+                }
+
+                if (this.x > 0 && this.y < 7 && gm[this.x - 1][this.y + 1] instanceof chesspiece) {
+                    possibilities.push({x: this.x - 1, y: this.y + 1});
+                }
+            } else if (possible[0] == "y"){
+                if (gm[this.x][this.y + 1] == null) {
+                    possibilities.push({x: this.x, y: this.y + 1});
+
+                    if (!this.moved) {
+
+                        if (gm[this.x][this.y + 2] == null) {
+                            possibilities.push({x: this.x, y: this.y + 2});
+                        }
+                    }
+                }
+			} else if (possible[0] == "x+y+"){
+                if (this.x < 7 && this.y < 7 && gm[this.x + 1][this.y + 1] instanceof chesspiece) {
+                    possibilities.push({x: this.x + 1, y: this.y + 1});
+                }
+			} else if (possible[0] == "x-y+"){
+                if (this.x > 0 && this.y < 7 && gm[this.x - 1][this.y + 1] instanceof chesspiece) {
+                    possibilities.push({x: this.x - 1, y: this.y + 1});
+                }
 			}
 
-			if(this.x < 7 && this.y < 7 && gm[this.x+1][this.y+1] instanceof chesspiece){
-				possibilities.push({x:this.x+1,y:this.y+1});		
-			}
-
-			if(this.x > 0 && this.y < 7 && gm[this.x-1][this.y+1] instanceof chesspiece){
-				possibilities.push({x:this.x-1,y:this.y+1});			
-			}
+            possibilities = possibilities.filter(function(x){
+                if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+                    return x;
+                }
+            });
 
 			for(let i of possibilities){
 				i.x = 7-i.x;
 				i.y = 7-i.y;
 			}
 
+            let saveKing = gameboard.get().saveTheKing();
+            if(!saveKing[0]){
+                possibilities = possibilities.filter(function(possibility){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
+                    }
+                });
+            }
 		}else{
+			if(possible[0]) {
+                if (gm[this.x][this.y - 1] == null) {
+                    possibilities.push({x: this.x, y: this.y - 1});
 
-			if(gm[this.x][this.y-1] == null){
-				possibilities.push({x:this.x,y:this.y-1});
-			
-				if(!this.moved){
+                    if (!this.moved) {
 
-					if(gm[this.x][this.y-2] == null){
-						possibilities.push({x:this.x,y:this.y-2});		
-					}	
-				}
+                        if (gm[this.x][this.y - 2] == null) {
+                            possibilities.push({x: this.x, y: this.y - 2});
+                        }
+                    }
 
+                }
+
+                if (this.x < 7 && this.y > 0 && gm[this.x + 1][this.y - 1] instanceof chesspiece) {
+                    possibilities.push({x: this.x + 1, y: this.y - 1});
+                }
+
+                if (this.x > 0 && this.y > 0 && gm[this.x - 1][this.y - 1] instanceof chesspiece) {
+                    possibilities.push({x: this.x - 1, y: this.y - 1});
+                }
+            } else if (possible[1] == "y"){
+                if (gm[this.x][this.y - 1] == null) {
+                    possibilities.push({x: this.x, y: this.y - 1});
+
+                    if (!this.moved) {
+
+                        if (gm[this.x][this.y - 2] == null) {
+                            possibilities.push({x: this.x, y: this.y - 2});
+                        }
+                    }
+
+                }
+			} else if (possible[1] == "x+y-"){
+                if (this.x < 7 && this.y > 0 && gm[this.x + 1][this.y - 1] instanceof chesspiece) {
+                    possibilities.push({x: this.x + 1, y: this.y - 1});
+                }
+			} else if (possible[1] == "x-y-"){
+                if (this.x > 0 && this.y > 0 && gm[this.x - 1][this.y - 1] instanceof chesspiece) {
+                    possibilities.push({x: this.x - 1, y: this.y - 1});
+                }
 			}
 
-			if(this.x < 7 && this.y > 0 && gm[this.x+1][this.y-1] instanceof chesspiece){
-				possibilities.push({x:this.x+1,y:this.y-1});		
-			}
+            possibilities = possibilities.filter(function(x){
+                if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+                    return x;
+                }
+            });
 
-			if(this.x > 0 && this.y > 0 && gm[this.x-1][this.y-1] instanceof chesspiece){
-				possibilities.push({x:this.x-1,y:this.y-1});			
-			}
+            let saveKing = gameboard.get().saveTheKing();
+            if(!saveKing[0]){
+                possibilities = possibilities.filter(function(possibility){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
+                    }
+                });
+            }
 
 		}
 
@@ -333,16 +605,24 @@ class knight extends chesspiece{
 	}
 
 	options(){
-		let possibilities = [];
+        let possibilities = [];
 
-		possibilities.push({x:this.x+2,y:this.y+1});
-		possibilities.push({x:this.x-2,y:this.y+1});
-		possibilities.push({x:this.x-1,y:this.y+2});
-		possibilities.push({x:this.x+1,y:this.y+2});
-		possibilities.push({x:this.x+2,y:this.y-1});
-		possibilities.push({x:this.x-2,y:this.y-1});
-		possibilities.push({x:this.x+1,y:this.y-2});
-		possibilities.push({x:this.x-1,y:this.y-2});	
+        if(gameboard.get().kingNotInDanger(this)[0]) {
+            possibilities.push({x: this.x + 2, y: this.y + 1});
+            possibilities.push({x: this.x - 2, y: this.y + 1});
+            possibilities.push({x: this.x - 1, y: this.y + 2});
+            possibilities.push({x: this.x + 1, y: this.y + 2});
+            possibilities.push({x: this.x + 2, y: this.y - 1});
+            possibilities.push({x: this.x - 2, y: this.y - 1});
+            possibilities.push({x: this.x + 1, y: this.y - 2});
+            possibilities.push({x: this.x - 1, y: this.y - 2});
+        }
+        // let gm = gameboard.get().constructgamemap();
+        // possibilities = possibilities.filter(function(x){
+        //     if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+        //         return x;
+        //     }
+        // });
 
 		if(!gamestate.playerblack){
 			for(let i of possibilities){
@@ -351,6 +631,16 @@ class knight extends chesspiece{
 			}
 		}
 
+        let saveKing = gameboard.get().saveTheKing();
+        if(!saveKing[0]){
+            possibilities = possibilities.filter(function(possibility){
+                for(let option of saveKing[1]){
+                    if(option[0]==possibility.x && option[1]==possibility.y){
+                        return possibility;
+                    }
+                }
+            });
+        }
 
 		return possibilities;
 	}
