@@ -143,7 +143,7 @@ class bishop extends chesspiece{
 		}
 
         possibilities = possibilities.filter(function(x){
-            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)&& 0<=x.x && x.x<=7 && 0<=x.y && x.y<=7){
                 return x;
             }
         });
@@ -204,7 +204,11 @@ class king extends chesspiece{
 	    if(gameboard.get().tileSaveForKing(this.x, this.y-1, this)[0]) {
             possibilities.push({x: this.x, y: this.y - 1});
 	    }
-
+	    possibilities = possibilities.filter(function(x){
+	        if(0<=x.x && x.x<=7 && 0<=x.y && x.y<=7){
+	            return x;
+            }
+        });
 
 		if(!gamestate.playerblack){
 			for(let i of possibilities){
@@ -339,7 +343,7 @@ class queen extends chesspiece{
 		}
 
         possibilities = possibilities.filter(function(x){
-            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)&& 0<=x.x && x.x<=7 && 0<=x.y && x.y<=7){
                 return x;
             }
         });
@@ -429,7 +433,7 @@ class rook extends chesspiece{
         }
 
         possibilities = possibilities.filter(function(x){
-            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+            if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)&& 0<=x.x && x.x<=7 && 0<=x.y && x.y<=7){
                 return x;
             }
         });
@@ -513,7 +517,7 @@ class pawn extends chesspiece{
 			}
 
             possibilities = possibilities.filter(function(x){
-                if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+                if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)&& 0<=x.x && x.x<=7 && 0<=x.y && x.y<=7){
                     return x;
                 }
             });
@@ -577,7 +581,7 @@ class pawn extends chesspiece{
 			}
 
             possibilities = possibilities.filter(function(x){
-                if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
+                if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)&& 0<=x.x && x.x<=7 && 0<=x.y && x.y<=7){
                     return x;
                 }
             });
@@ -618,14 +622,21 @@ class knight extends chesspiece{
             possibilities.push({x: this.x + 1, y: this.y - 2});
             possibilities.push({x: this.x - 1, y: this.y - 2});
         }
-        // let gm = gameboard.get().constructgamemap();
-        // possibilities = possibilities.filter(function(x){
-        //     if(!(gm[x.x][x.y] != null && gm[x.x][x.y].blackpiece == gamestate.playerblack)){
-        //         return x;
-        //     }
-        // });
+        if(gamestate.playerblack){
+            possibilities = possibilities.filter(function(x){
+                let piece = gameboard.get().getpieceat(x.x,x.y);
+                if(!(piece != null && piece.blackpiece == gamestate.playerblack) && 0<=x.x && x.x<=7 && 0<=x.y && x.y<=7){
+                    return x;
+                }
+            });
+        } else {
+            possibilities = possibilities.filter(function(x){
+                let piece = gameboard.get().getpieceat(7-x.x,7-x.y);
+                if(!(piece != null && piece.blackpiece == gamestate.playerblack)&& 0<=x.x && x.x<=7 && 0<=x.y && x.y<=7){
+                    return x;
+                }
+            });
 
-		if(!gamestate.playerblack){
 			for(let i of possibilities){
 				i.x = 7-i.x;
 				i.y = 7-i.y;
