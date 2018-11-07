@@ -149,12 +149,3 @@ window.onload = function(){
 //start setup asap
 setup();
 
-
-
-
-
-
-
-
-
-

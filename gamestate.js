@@ -14,7 +14,7 @@ let gamestate = {
 
 	winner:null,
 
-	clocklength:50,
+	clocklength:3600,
 	clockoff:true,
 
 

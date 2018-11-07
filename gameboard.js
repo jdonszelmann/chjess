@@ -107,7 +107,7 @@ class gameboard{
 				//and the selected square
 				noFill();
 				strokeWidth(5);
-				stroke(250,0,0)
+				stroke(128,0,0);
 				rect(this.selectedX*gamestate.cellwidth, this.selectedY*gamestate.cellwidth, gamestate.cellwidth,);
 
 

@@ -35,6 +35,12 @@ class chessclock{
 		return `${hours}:${minutes}:${seconds}:${milliseconds}`
 	}
 
+	reload(){
+		this.canvas.width = window.innerHeight - 50;
+		this.canvas.height = 30;
+		this.canvas.style.position = "absolute";		
+	}
+
 	update(){
 		if(gamestate.clockoff){
 			this.context.fillStyle = `rgba(${51}, ${51}, ${51}, ${1})`;
@@ -69,7 +75,7 @@ class chessclock{
 			}
 
 			if(!gamestate.paused){
-				if(gamestate.playerblack){
+				if(!gamestate.playerblack){
 					this.whitetime -= 0.1;
 				}else{
 					this.blacktime -= 0.1;
