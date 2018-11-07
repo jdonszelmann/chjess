@@ -176,7 +176,7 @@ class gameboard{
 						MouseInput.selectedY = -1;
 						this.moving = null;
 
-						if(winner != null){
+						if(gamestate.winner != null){
                             openMenu("EndGame");
                         }
 

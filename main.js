@@ -2,7 +2,6 @@
 
 let whitechessboard;
 let blackchessboard;
-let winner = null;
 
 let activemenus;
 window.onresize = function(){
@@ -14,8 +13,6 @@ window.onresize = function(){
 
 
 function setup(){
-
-
 	//graphics lib executes this once at load time
 
 	canvas.width = window.innerHeight-50;
@@ -25,14 +22,14 @@ function setup(){
 
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
 
-	//make room for chesscounter
-	canvas.style.marginTop = 30;
-
 	whitechessboard = new Image();
 	whitechessboard.src = "resources/chessboard-black.png"
 
 	blackchessboard = new Image();
 	blackchessboard.src = "resources/chessboard-white.png"
+
+	//make room for chessclock
+	canvas.style.marginTop = 30;
 
 	//Event listeners for mouse-input
     canvas.addEventListener("mousemove", function (evt) {
@@ -47,13 +44,16 @@ function setup(){
 	openMenu("Main Menu");
 	openMenu("Main Menu Tab");
 	openMenu("Main Menu InGame");
+	openMenu("settings");
+	openMenu("confirm");
+	openMenu("confirm2");
 }
 
 function draw(){
 	
 	//executed 60 times per second after all loads have completed
 
-	if(gamestate.animation == "rotateboard" && winner==null){
+	if(gamestate.animation == "rotateboard" && gamestate.winner==null){
 
 		let darktime = 50;
 
@@ -79,7 +79,6 @@ function draw(){
         activemenus.draw();
 
         let x = 1.2 * Math.sin(((2*Math.PI)/(80+darktime)) * gamestate.animationcounter);
-        // let x  = 1;
 
 		if(x > 1){
 			x = 1;

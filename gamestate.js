@@ -12,6 +12,17 @@ let gamestate = {
 	src:[],
 	piecemoving:null,
 
+	winner:null,
+
+	clocklength:50,
+	clockoff:true,
+
+
+	movehelper:true,
+
+	gamestring: {
+		movehelper:"Movehelper on",
+	},
 }
 
 

@@ -128,8 +128,20 @@ function writeText(x,y, text, max=canvas.width){
 	context.fillText(text, x, y, max);
 }
 
+function clockfunc(){
+	chessclock.get().update()
+}
+
+function clock(){
+	window.requestAnimationFrame(clockfunc);
+}
+
 //detect everything is loaded
 window.onload = function(){
+
+	chessclock.get();
+	window.setInterval(clock, 100);
+
 	eventloop();
 }
 
