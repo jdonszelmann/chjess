@@ -1,5 +1,5 @@
 # chjess
-Chess game made with JavaScript and a bit of magic :D
+Chess game made with JavaScript and a lot of magic :D
 
 # Single Player Features:
 1. Intelligent AI
