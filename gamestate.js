@@ -23,6 +23,8 @@ let gamestate = {
 	gamestring: {
 		movehelper:"Movehelper on",
 	},
+
+	menus: [],
 }
 
 

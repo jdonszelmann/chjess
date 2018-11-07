@@ -6,7 +6,7 @@ let settings;
 let confirm;
 let confirm2;
 
-let preconfiguredmenus= {
+let preconfiguredmenus = {
     "Main Menu": function(){
         mainMenu = new Menu("mainMenu", 3,3,4,3, "Main Menu!");
         mainMenu.addButton("play", 2, 1.5,2,0.5, "Play!", function(){

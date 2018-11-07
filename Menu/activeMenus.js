@@ -6,6 +6,11 @@ class activeMenus{
         for(let menu in this.active){
             this.active[menu].draw();
         }
+        for(let menu of gamestate.menus){
+            if(!(menu in this.active)){
+                menu.update();
+            }
+        }
     }
     checkForButtons(x, y){
         for(let menu in this.active){
