@@ -1,7 +1,6 @@
 
 
-let whitechessboard;
-let blackchessboard;
+let chessboard;
 
 let activemenus;
 
@@ -43,9 +42,9 @@ function pollresize() {
 	if(newpixelratio != pixelratio){
 		window.onzoom();
 		pixelratio = newpixelratio;
-		if((pixelratio < 0.8 || pixelratio > 1.8)){
-			alert("for a better experience, please change your zoom level closer to 100%");
-		}
+		// if((pixelratio < 0.8 || pixelratio > 1.8)){
+		// 	alert("for a better experience, please change your zoom level closer to 100%");
+		// }
 	}
 }
 
@@ -63,11 +62,8 @@ function setup(){
 	document.getElementsByTagName("body")[0].style.textAlign = "center"
 	document.getElementsByTagName("body")[0].style.backgroundColor = "rgb(51,51,51)"
 
-	whitechessboard = new Image();
-	whitechessboard.src = "resources/chessboard-black.png"
-
-	blackchessboard = new Image();
-	blackchessboard.src = "resources/chessboard-white.png"
+	chessboard = new Image();
+	chessboard.src = "resources/chessboard.png"
 
 	//make room for chessclock
 	canvas.style.marginTop = 30;
@@ -83,26 +79,31 @@ function setup(){
 
 	activemenus = new activeMenus();
 	openMenu("Main Menu");
+	//stop first menu from fading in
 	openMenu("Main Menu Tab");
 	openMenu("Main Menu InGame");
 	openMenu("settings");
 	openMenu("confirm");
 	openMenu("confirm2");
 
+	// activemenus.active.alpha = 255;
+	// console.log(activemenus.active);
 
-	let ratio = (window.outerWidth - 8) / window.innerWidth;
-	if(ratio < 0.8 || ratio > 1.8){
-		alert("for a better experience, please change your zoom level closer to 100%");
-	}
+	// let ratio = (window.outerWidth - 8) / window.innerWidth;
+	// if(ratio < 0.8 || ratio > 1.8){
+	// 	alert("for a better experience, please change your zoom level closer to 100%");
+	// }
 }
 
 function draw(){
 	
 	//executed 60 times per second after all loads have completed
 
+	gamestate.framecounter++;
+
 	if(gamestate.animation == "rotateboard" && gamestate.winner==null){
 
-		let darktime = 50;
+		let darktime = 5;
 
 		gamestate.animationcounter++;
 
@@ -115,11 +116,8 @@ function draw(){
 
 		}
 
-		if(gamestate.playerblack){
-			blit(0,0,canvas.width,canvas.height,blackchessboard);
-		}else{
-			blit(0,0,canvas.width,canvas.height,whitechessboard);
-		}
+		blit(0,0,canvas.width,canvas.height,chessboard);
+
 
 		// singleton
 		gameboard.get().draw()
@@ -127,7 +125,7 @@ function draw(){
         activemenus.draw();
         gameboard.get().isItCheckMate();
 
-        let x = 1.2 * Math.sin(((2*Math.PI)/(80+darktime)) * gamestate.animationcounter);
+        let x = 1.4 * Math.sin(((2*Math.PI)/(80+darktime)) * gamestate.animationcounter);
 
 		if(x > 1){
 			x = 1;
@@ -156,30 +154,38 @@ function draw(){
 
 
 		if(gamestate.animationcounter == length-1){
-			gamestate.animation = "rotateboard";
-			gamestate.animationcounter = 0;
+			if(!gamestate.AI){
+				gamestate.animation = "rotateboard";
+				gamestate.animationcounter = 0;
 
-			gamestate.piecemoving.x = gamestate.dst[0];
-			gamestate.piecemoving.y = gamestate.dst[1];
+				gamestate.piecemoving.x = gamestate.dst[0];
+				gamestate.piecemoving.y = gamestate.dst[1];
+				
+			}else if(gamestate.AImove){
+
+				gamestate.AImove = false;
+				gamestate.piecemoving.x = gamestate.dst[0];
+				gamestate.piecemoving.y = gamestate.dst[1];
+				gamestate.animation = null;	
+
+			}else{
+				gamestate.piecemoving.x = gamestate.dst[0];
+				gamestate.piecemoving.y = gamestate.dst[1];
+
+				
+				AI.nextmove();
+			}
 		}
 
 
-		if(gamestate.playerblack){
-			blit(0,0,canvas.width,canvas.height,blackchessboard);
-		}else{
-			blit(0,0,canvas.width,canvas.height,whitechessboard);
-		}
+		blit(0,0,canvas.width,canvas.height,chessboard);
 
 		gameboard.get().draw(nomovedetect=true)
 		MouseInput.draw();
 		activemenus.draw();
 
 	}else{
-		if(gamestate.playerblack){
-			blit(0,0,canvas.width,canvas.height,blackchessboard);
-		}else{
-			blit(0,0,canvas.width,canvas.height,whitechessboard);
-		}
+		blit(0,0,canvas.width,canvas.height,chessboard);
 
 		//singleton
 		gameboard.get().draw();
