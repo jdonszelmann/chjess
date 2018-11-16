@@ -70,7 +70,7 @@ class chessclock{
 				openMenu("EndGame");
 			}
 			if(this.blacktime <= 0.1){
-				gamestate.winner = "Black";
+				gamestate.winner = "White";
 				openMenu("EndGame");
 			}
 

@@ -1,8 +1,28 @@
 
+let piecemap = {
+	black:{
+		queen:"resources/queen-black.png",
+		king:"resources/king-black.png",
+		pawn:"resources/pawn-black.png",
+		rook:"resources/rook-black.png",
+		bishop:"resources/bishop-black.png",
+		knight:"resources/knight-black.png",
+	},
+	white:{
+		queen:"resources/queen-white.png",
+		king:"resources/king-white.png",
+		pawn:"resources/pawn-white.png",
+		rook:"resources/rook-white.png",
+		bishop:"resources/bishop-white.png",
+		knight:"resources/knight-white.png",
+	}
+}
+
 
 class chesspiece{
 	constructor(filename,x,y,blackpiece){
-		this.filename = filename;
+		this.filename = filename
+
 		this.img = new Image();
 		this.img.src = this.filename;
 
@@ -72,7 +92,15 @@ class chesspiece{
 }
 
 class bishop extends chesspiece{
-	constructor(filename,x,y,blackpiece){
+	constructor(x,y,blackpiece){
+		let filename;
+
+		if(blackpiece){
+			filename = piecemap.black.bishop;			
+		}else{
+			filename = piecemap.white.bishop;			
+		}
+
 		super(filename,x,y,blackpiece);
 	}
 
@@ -158,9 +186,11 @@ class bishop extends chesspiece{
         let saveKing = gameboard.get().saveTheKing();
         if(!saveKing[0]){
             possibilities = possibilities.filter(function(possibility){
-                for(let option of saveKing[1]){
-                    if(option[0]==possibility.x && option[1]==possibility.y){
-                        return possibility;
+                if(saveKing[1]){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
                     }
                 }
             });
@@ -171,7 +201,15 @@ class bishop extends chesspiece{
 }
 
 class king extends chesspiece{
-	constructor(filename,x,y,blackpiece){
+	constructor(x,y,blackpiece){
+		let filename;
+	
+		if(blackpiece){
+			filename = piecemap.black.king;			
+		}else{
+			filename = piecemap.white.king;			
+		}
+
 		super(filename,x,y,blackpiece);
 	}
 
@@ -230,7 +268,15 @@ class king extends chesspiece{
 }
 
 class queen extends chesspiece{
-	constructor(filename,x,y,blackpiece){
+	constructor(x,y,blackpiece){
+		let filename;
+		
+		if(blackpiece){
+			filename = piecemap.black.queen;			
+		}else{
+			filename = piecemap.white.queen;			
+		}
+
 		super(filename,x,y,blackpiece);
 	}
 
@@ -358,9 +404,11 @@ class queen extends chesspiece{
         let saveKing = gameboard.get().saveTheKing();
         if(!saveKing[0]){
             possibilities = possibilities.filter(function(possibility){
-                for(let option of saveKing[1]){
-                    if(option[0]==possibility.x && option[1]==possibility.y){
-                        return possibility;
+                if(saveKing[1]){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
                     }
                 }
             });
@@ -370,7 +418,14 @@ class queen extends chesspiece{
 }
 
 class rook extends chesspiece{
-	constructor(filename,x,y,blackpiece){
+	constructor(x,y,blackpiece){
+		let filename;
+		if(blackpiece){
+			filename = piecemap.black.rook;			
+		}else{
+			filename = piecemap.white.rook;			
+		}
+
 		super(filename,x,y,blackpiece);
 	}
 
@@ -448,9 +503,11 @@ class rook extends chesspiece{
         let saveKing = gameboard.get().saveTheKing();
         if(!saveKing[0]){
             possibilities = possibilities.filter(function(possibility){
-                for(let option of saveKing[1]){
-                    if(option[0]==possibility.x && option[1]==possibility.y){
-                        return possibility;
+                if(saveKing[1]){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
                     }
                 }
             });
@@ -461,7 +518,14 @@ class rook extends chesspiece{
 }
 
 class pawn extends chesspiece{
-	constructor(filename,x,y,blackpiece){
+	constructor(x,y,blackpiece){
+		let filename;
+		if(blackpiece){
+			filename = piecemap.black.pawn;			
+		}else{
+			filename = piecemap.white.pawn;			
+		}
+
 		super(filename,x,y,blackpiece);
 		this.moved = false;
 	}
@@ -530,9 +594,11 @@ class pawn extends chesspiece{
             let saveKing = gameboard.get().saveTheKing();
             if(!saveKing[0]){
                 possibilities = possibilities.filter(function(possibility){
-                    for(let option of saveKing[1]){
-                        if(option[0]==possibility.x && option[1]==possibility.y){
-                            return possibility;
+                    if(saveKing[1]){
+                        for(let option of saveKing[1]){
+                            if(option[0]==possibility.x && option[1]==possibility.y){
+                                return possibility;
+                            }
                         }
                     }
                 });
@@ -589,9 +655,11 @@ class pawn extends chesspiece{
             let saveKing = gameboard.get().saveTheKing();
             if(!saveKing[0]){
                 possibilities = possibilities.filter(function(possibility){
-                    for(let option of saveKing[1]){
-                        if(option[0]==possibility.x && option[1]==possibility.y){
-                            return possibility;
+                    if(saveKing[1]){
+                        for(let option of saveKing[1]){
+                            if(option[0]==possibility.x && option[1]==possibility.y){
+                                return possibility;
+                            }
                         }
                     }
                 });
@@ -605,7 +673,13 @@ class pawn extends chesspiece{
 }
 
 class knight extends chesspiece{
-	constructor(filename,x,y,blackpiece){
+	constructor(x,y,blackpiece){
+		let filename;
+		if(blackpiece){
+			filename = piecemap.black.knight;			
+		}else{
+			filename = piecemap.white.knight;			
+		}
 		super(filename,x,y,blackpiece);
 	}
 
@@ -646,9 +720,11 @@ class knight extends chesspiece{
         let saveKing = gameboard.get().saveTheKing();
         if(!saveKing[0]){
             possibilities = possibilities.filter(function(possibility){
-                for(let option of saveKing[1]){
-                    if(option[0]==possibility.x && option[1]==possibility.y){
-                        return possibility;
+                if(saveKing[1]){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
                     }
                 }
             });
@@ -660,38 +736,40 @@ class knight extends chesspiece{
 }
 function insertPieces() {
     //default game setup
-    new rook("resources/rook-white.png", 0, 0, false);
-    new knight("resources/knight-white.png", 1, 0, false);
-    new bishop("resources/bishop-white.png", 2, 0, false);
-    new king("resources/king-white.png", 3, 0, false);
-    new queen("resources/queen-white.png", 4, 0, false);
-    new bishop("resources/bishop-white.png", 5, 0, false);
-    new knight("resources/knight-white.png", 6, 0, false);
-    new rook("resources/rook-white.png", 7, 0, false);
-    new pawn("resources/pawn-white.png", 0, 1, false);
-    new pawn("resources/pawn-white.png", 1, 1, false);
-    new pawn("resources/pawn-white.png", 2, 1, false);
-    new pawn("resources/pawn-white.png", 3, 1, false);
-    new pawn("resources/pawn-white.png", 4, 1, false);
-    new pawn("resources/pawn-white.png", 5, 1, false);
-    new pawn("resources/pawn-white.png", 6, 1, false);
-    new pawn("resources/pawn-white.png", 7, 1, false);
+    new rook(0, 0, false);
+    new knight(1, 0, false);
+    new bishop(2, 0, false);
+    new king(3, 0, false);
+    new queen(4, 0, false);
+    new bishop(5, 0, false);
+    new knight(6, 0, false);
+    new rook(7, 0, false);
+    new pawn(0, 1, false);
+    new pawn(1, 1, false);
+    new pawn(2, 1, false);
+    new pawn(3, 1, false);
+    new pawn(4, 1, false);
+    new pawn(5, 1, false);
+    new pawn(6, 1, false);
+    new pawn(7, 1, false);
 
-    new rook("resources/rook-black.png", 0, 7, true);
-    new knight("resources/knight-black.png", 1, 7, true);
-    new bishop("resources/bishop-black.png", 2, 7, true);
-    new king("resources/king-black.png", 3, 7, true);
-    new queen("resources/queen-black.png", 4, 7, true);
-    new bishop("resources/bishop-black.png", 5, 7, true);
-    new knight("resources/knight-black.png", 6, 7, true);
-    new rook("resources/rook-black.png", 7, 7, true);
-    new pawn("resources/pawn-black.png", 0, 6, true);
-    new pawn("resources/pawn-black.png", 1, 6, true);
-    new pawn("resources/pawn-black.png", 2, 6, true);
-    new pawn("resources/pawn-black.png", 3, 6, true);
-    new pawn("resources/pawn-black.png", 4, 6, true);
-    new pawn("resources/pawn-black.png", 5, 6, true);
-    new pawn("resources/pawn-black.png", 6, 6, true);
-    new pawn("resources/pawn-black.png", 7, 6, true);
+    new rook(0, 7, true);
+    new knight(1, 7, true);
+    new bishop(2, 7, true);
+    new king(3, 7, true);
+    new queen(4, 7, true);
+    new bishop(5, 7, true);
+    new knight(6, 7, true);
+    new rook(7, 7, true);
+    new pawn(0, 6, true);
+    new pawn(1, 6, true);
+    new pawn(2, 6, true);
+    new pawn(3, 6, true);
+    new pawn(4, 6, true);
+    new pawn(5, 6, true);
+    new pawn(6, 6, true);
+    new pawn(7, 6, true);
 }
 insertPieces();
+
+

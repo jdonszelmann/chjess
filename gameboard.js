@@ -51,6 +51,34 @@ class gameboard{
 		return gamemap;
 	}
 
+    loadmap(map){
+        this.pieces = [];
+        for(let i of map){
+            let piece = i.piece;
+            piece.x = i.x;
+            piece.y = i.y;
+            piece.moved = i.moved;
+            piece.blackpiece = i.black;
+            piece.dead = i.dead;
+            this.pieces.push(piece);
+        }
+    }
+
+    getmap(){
+        let map = [];
+        for(let i of this.pieces){
+            map.push({
+                black:i.blackpiece,
+                piece:i,
+                x:i.x,
+                y:i.y,
+                moved:i.moved,
+                dead:i.dead,
+            })
+        }
+        return map;
+    }
+
 	getpieceat(x,y){
 		if(!gamestate.playerblack){
 			x = 7 - x;
@@ -161,14 +189,9 @@ class gameboard{
 							movepiece(7-MouseInput.selectedX,7-MouseInput.selectedY,piece);
 						}
 
-
-
-
 						if(piece.move){
 							piece.move();
 						}
-
-
 
 						//stop moving, reset all
 						this.selectedX = -1;
@@ -183,6 +206,11 @@ class gameboard{
 
 
 					}else{
+                        if(oldpiece && oldpiece.blackpiece == gamestate.playerblack){
+                            this.selectedX = MouseInput.selectedX;
+                            this.selectedY = MouseInput.selectedY;
+                            this.moving = oldpiece;
+                        }
 						MouseInput.selectedX = -1;
 						MouseInput.selectedY = -1;			
 					}
@@ -1136,6 +1164,12 @@ class gameboard{
         if(Return){
             return [true];
         } else {
+            // if(!gamestate.playerblack){
+            //     for(let pos in enemy){
+            //         enemy[pos][0] = 7-enemy[pos][0];
+            //         enemy[pos][1] = 7-enemy[pos][1];
+            //     }
+            // }
             return [false, enemy];
         }
     }
