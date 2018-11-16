@@ -5,15 +5,16 @@ let EndGame;
 let settings;
 let confirm;
 let confirm2;
+let ChoosePawn;
 
 let preconfiguredmenus = {
     "Main Menu": function(){
         mainMenu = new Menu("mainMenu", 3,3,4,3, "Main Menu!");
-        mainMenu.addButton("play", 2, 1.5,2,0.5, "Play!", function(){
+        mainMenu.addButton("Single Player", 2, 1.5,2,0.5, "Single Player!", function(){
             mainMenu.deactivate();
             mainMenuTab.activate();
             gamestate.paused = false;
-            chessclock.get().reset()
+            chessclock.get().reset();
         });
         mainMenu.addButton("quit", 2, 2.1, 2, 0.5, "Quit!", function(){
             open("https://www.urbandictionary.com/define.php?term=ragequit", '_self');
@@ -48,12 +49,12 @@ let preconfiguredmenus = {
             mainMenuInGame.activate();
         });
 
-        confirm2.addButton("restart", 2, 2.1, 2, 0.5, "restart", function(){
+        confirm2.addButton("restart", 2, 2.1, 2, 0.5, "restart", function () {
             gameboard.get().reset();
             confirm2.deactivate();
             mainMenuTab.activate();
             gamestate.paused = false;
-        });        
+        });
     },
 
 
@@ -142,7 +143,7 @@ let preconfiguredmenus = {
         mainMenuTab.addButton("openMainMenu", 0, 0, 0.5,0.5, "", function () {
             mainMenuTab.deactivate();
             mainMenuInGame.activate();
-        })
+        });
         mainMenuTab.setAlternativeDraw(function () {
             let tabButton = new Image();
             tabButton.src = "resources/MainMenuTab.png";
@@ -156,10 +157,11 @@ let preconfiguredmenus = {
             mainMenuTab.activate();
             gamestate.paused = false;
         });
-        mainMenuInGame.addButton("newGame", 2,2.1,2,0.5, "New Game", function(){
+        mainMenuInGame.addButton("newGame", 2, 2.1, 2, 0.5, "New Game", function () {
             confirm2.activate();
             mainMenuInGame.deactivate();
         });
+
         mainMenuInGame.addButton("backToMainMenu", 2, 2.7, 2, 0.5, "Main Menu", function(){
             confirm.activate();
             mainMenuInGame.deactivate();
@@ -183,6 +185,15 @@ let preconfiguredmenus = {
             mainMenu.activate();
         });
         EndGame.activate();
+    },
+    "ChoosePawn": function () {
+        ChoosePawn = new Menu("ChoosePawn", 1,5.5,8, 1.5, "Choose your price!");
+        ChoosePawn.addButton("Rook", 1, 0, 1, 1, "", function(){
+            alert("Rook!");
+        });
+        ChoosePawn.addButton("Knight", 2, 0, 1, 1, "", function(){
+           alert("Knight!");
+        });
     }
 }
 function openMenu(name){

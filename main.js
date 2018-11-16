@@ -17,6 +17,7 @@ window.onresize = function(){
 	openMenu("settings");
 	openMenu("confirm");
 	openMenu("confirm2");
+	openMenu("ChoosePawn");
 	chessclock.get().reload();
 }
 
@@ -88,6 +89,7 @@ function setup(){
 	openMenu("settings");
 	openMenu("confirm");
 	openMenu("confirm2");
+	openMenu("ChoosePawn");
 
 
 	let ratio = (window.outerWidth - 8) / window.innerWidth;
