@@ -1048,7 +1048,7 @@ class gameboard{
             piece = this.getpieceat((7-x)+1, (7-y)-2);
             if(piece != null && piece.blackpiece && piece instanceof knight){
                 if(x == itself.x && y == itself.y){
-                        enemy.push([piece.x, piece.y]);
+                        enemy.push([7-piece.x, 7-piece.y]);
                         Return = false;
                     } else {
                         return [false]
@@ -1058,7 +1058,7 @@ class gameboard{
             piece = this.getpieceat((7-x)-1, (7-y)-2);
             if(piece != null && piece.blackpiece && piece instanceof knight){
                 if(x == itself.x && y == itself.y){
-                        enemy.push([piece.x, piece.y]);
+                        enemy.push([7-piece.x, 7-piece.y]);
                         Return = false;
                     } else {
                         return [false]
@@ -1068,7 +1068,7 @@ class gameboard{
             piece = this.getpieceat((7-x)+1, (7-y)+2);
             if(piece != null && piece.blackpiece && piece instanceof knight){
                 if(x == itself.x && y == itself.y){
-                        enemy.push([piece.x, piece.y]);
+                        enemy.push([7-piece.x, 7-piece.y]);
                         Return = false;
                     } else {
                         return [false]
@@ -1078,7 +1078,7 @@ class gameboard{
             piece = this.getpieceat((7-x)-1, (7-y)+2);
             if(piece != null && piece.blackpiece && piece instanceof knight){
                 if(x == itself.x && y == itself.y){
-                        enemy.push([piece.x, piece.y]);
+                        enemy.push([7-piece.x, 7-piece.y]);
                         Return = false;
                     } else {
                         return [false]
@@ -1088,7 +1088,7 @@ class gameboard{
             piece = this.getpieceat((7-x)-2, (7-y)+1);
             if(piece != null && piece.blackpiece && piece instanceof knight){
                 if(x == itself.x && y == itself.y){
-                        enemy.push([piece.x, piece.y]);
+                        enemy.push([7-piece.x, 7-piece.y]);
                         Return = false;
                     } else {
                         return [false]
@@ -1098,7 +1098,7 @@ class gameboard{
             piece = this.getpieceat((7-x)-2, (7-y)-1);
             if(piece != null && piece.blackpiece && piece instanceof knight){
                 if(x == itself.x && y == itself.y){
-                        enemy.push([piece.x, piece.y]);
+                        enemy.push([7-piece.x, 7-piece.y]);
                         Return = false;
                     } else {
                         return [false]
@@ -1108,7 +1108,7 @@ class gameboard{
             piece = this.getpieceat((7-x)+2, (7-y)+1);
             if(piece != null && piece.blackpiece && piece instanceof knight){
                 if(x == itself.x && y == itself.y){
-                        enemy.push([piece.x, piece.y]);
+                        enemy.push([7-piece.x, 7-piece.y]);
                         Return = false;
                     } else {
                         return [false]
@@ -1118,7 +1118,7 @@ class gameboard{
             piece = this.getpieceat((7-x)+2, (7-y)-1);
             if(piece != null && piece.blackpiece && piece instanceof knight){
                 if(x == itself.x && y == itself.y){
-                        enemy.push([piece.x, piece.y]);
+                        enemy.push([7-piece.x, 7-piece.y]);
                         Return = false;
                     } else {
                         return [false]
@@ -1130,6 +1130,8 @@ class gameboard{
             if(piece != null && !piece.blackpiece && piece != itself){
                 return [false]
             }
+
+
         }
         if(Return){
             return [true];

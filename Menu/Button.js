@@ -7,6 +7,8 @@ class Button {
         this.text = text;
         this.clicked = click;
         this.hovering = false
+        this.noDraw = false;
+        this.alternativeDraw = function(){};
     }
 
     draw(alpha=255){
