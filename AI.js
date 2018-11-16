@@ -2,9 +2,10 @@
 
 let AI = {
 
-	allmoves:function(black=true){
-		let possiblemoves = []
+	allmoves:function(black){
+		let possiblemoves = [];
 		for(let i of gameboard.get().pieces){
+			
 			if(i.blackpiece == black && !i.dead){
 				for(let j of i.options()){
 					possiblemoves.push({
@@ -14,6 +15,7 @@ let AI = {
 					});
 				}
 			}
+
 		}
 		return possiblemoves;
 	},
@@ -40,7 +42,7 @@ let AI = {
 			}else if(i.constructor.name == "king"){
 				score = 900;
 			}
-			if(!i.blackpiece){
+			if(i.blackpiece){
 				score = -score;
 			}
 			totalscore += score;
@@ -63,87 +65,97 @@ let AI = {
 
 
 	},
-	filtermoveswhite:function(possibilities,rec=0){
-		let oldwinner = gamestate.winner;
-		let oldplayer = gamestate.playerblack;
-		gamestate.playerblack = true;
 
-		let highest = {
-			move:null,
-			value:-999999,
+	minimax: function(depth, isblack, alpha, beta){
+		if(depth == 0){
+			return -this.boardvalue();
+		}
+		gamestate.playerblack = isblack;
+
+		let possibilities = shuffle(this.allmoves(isblack));
+		if (isblack) {
+			let bestMove = -9999;
+			for (let i = 0; i < possibilities.length; i++) {
+				
+				let tmp = gameboard.get().getmap();
+
+				this.moveto(possibilities[i]);
+				bestMove = Math.max(bestMove, this.minimax(depth - 1, !isblack, alpha, beta));
+				
+				gameboard.get().loadmap(tmp);
+
+				alpha = Math.max(alpha, bestMove);
+				if(beta <= alpha){
+					return bestMove;
+				}
+
+			}
+			return bestMove;
+		} else {
+			let bestMove = 9999;
+			for (let i = 0; i < possibilities.length; i++) {
+				let tmp = gameboard.get().getmap();
+
+				this.moveto(possibilities[i]);
+				bestMove = Math.min(bestMove, this.minimax(depth - 1, !isblack, alpha, beta));
+
+				gameboard.get().loadmap(tmp);
+
+				beta = Math.min(beta, bestMove);
+				if (beta <= alpha) {
+					return bestMove;
+				}
+			}
+			return bestMove;
 		}
 
-		let tmp = gameboard.get().getmap();
-		for(let i of possibilities){		
-
-			this.moveto(i);
-			let value = this.boardvalue();
-			console.log(value,i)
-
-
-			gameboard.get().loadmap(tmp);
-		}
-		console.log(highest.move);
-		gamestate.playerblack = oldplayer;
-		gamestate.winner = oldwinner;
-		return highest.move;
 	},
 
-	filtermovesblack:function(possibilities,rec=0){
-		let oldwinner = gamestate.winner;
-		let oldplayer = gamestate.playerblack;
+
+	filtermoves:function(depth){
+		let tmpwin = gamestate.winner;
+		
 		gamestate.playerblack = true;
-		let highest = {
-			move:null,
-			value:-999999,
-		}
 
-		let tmp = gameboard.get().getmap();
-		for(let i of possibilities){
+	
+		let possibilities = shuffle(this.allmoves(true));
+		let bestMove = -9999;
+		let bestMoveFound;
 
-			gamestate.playerblack = true;
+		for(let i = 0; i < possibilities.length; i++) {
+			let tmp = gameboard.get().getmap();
 
-			this.moveto(i);
-			let value = this.boardvalue();
-			// console.log(value,i);
-			if(rec != 1){
-				gamestate.playerblack = false;
-				let newpossibilities = this.allmoves(false);
-				gamestate.playerblack = true;
-				this.filtermoveswhite(newpossibilities);
-
-			}
+			
+			let newGameMove = possibilities[i];
+			this.moveto(newGameMove);
 
 
-			if(value > highest.value){
-				highest.move = i;
-				highest.value = value;
-			}
-
+			let value = this.minimax(depth - 1, false,-10000, 10000);
 			gameboard.get().loadmap(tmp);
+
+			if(value >= bestMove) {
+				bestMove = value;
+				bestMoveFound = newGameMove;
+			}
+			console.log(bestMoveFound,value,this.boardvalue());
 		}
-		gamestate.playerblack = oldplayer;
-		gamestate.winner = oldwinner;
-		console.log(highest.move);
-		return highest.move;
+
+
+		gamestate.winner = tmpwin;
+		return bestMoveFound;
 	},
 
 	//AI assumes it is always black
 	nextmove:function(){
 
+		let move = this.filtermoves(5);
+
 		gamestate.playerblack = true;
 
-		let possibilities = this.allmoves();
-
-		if(possibilities.length == 0){
-            gamestate.winner = "White";
-            gamestate.animation = null;
-            gamestate.playerblack = false;
-            openMenu("EndGame");
+		if(!move){
+			gamestate.winner = "White";
 			return;
 		}
-
-		let move = this.filtermovesblack(possibilities);
 
 		let oldpiece = gameboard.get().getpieceat(move.to[0],move.to[1]);
 
@@ -168,5 +180,6 @@ let AI = {
 		gamestate.AImove = true;
 
 		gamestate.playerblack = false;
+
 	} 
 }

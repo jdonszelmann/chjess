@@ -1162,6 +1162,12 @@ class gameboard{
         if(Return){
             return [true];
         } else {
+            // if(!gamestate.playerblack){
+            //     for(let pos in enemy){
+            //         enemy[pos][0] = 7-enemy[pos][0];
+            //         enemy[pos][1] = 7-enemy[pos][1];
+            //     }
+            // }
             return [false, enemy];
         }
     }

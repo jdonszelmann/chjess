@@ -186,9 +186,11 @@ class bishop extends chesspiece{
         let saveKing = gameboard.get().saveTheKing();
         if(!saveKing[0]){
             possibilities = possibilities.filter(function(possibility){
-                for(let option of saveKing[1]){
-                    if(option[0]==possibility.x && option[1]==possibility.y){
-                        return possibility;
+                if(saveKing[1]){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
                     }
                 }
             });
@@ -402,9 +404,11 @@ class queen extends chesspiece{
         let saveKing = gameboard.get().saveTheKing();
         if(!saveKing[0]){
             possibilities = possibilities.filter(function(possibility){
-                for(let option of saveKing[1]){
-                    if(option[0]==possibility.x && option[1]==possibility.y){
-                        return possibility;
+                if(saveKing[1]){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
                     }
                 }
             });
@@ -499,9 +503,11 @@ class rook extends chesspiece{
         let saveKing = gameboard.get().saveTheKing();
         if(!saveKing[0]){
             possibilities = possibilities.filter(function(possibility){
-                for(let option of saveKing[1]){
-                    if(option[0]==possibility.x && option[1]==possibility.y){
-                        return possibility;
+                if(saveKing[1]){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
                     }
                 }
             });
@@ -588,9 +594,11 @@ class pawn extends chesspiece{
             let saveKing = gameboard.get().saveTheKing();
             if(!saveKing[0]){
                 possibilities = possibilities.filter(function(possibility){
-                    for(let option of saveKing[1]){
-                        if(option[0]==possibility.x && option[1]==possibility.y){
-                            return possibility;
+                    if(saveKing[1]){
+                        for(let option of saveKing[1]){
+                            if(option[0]==possibility.x && option[1]==possibility.y){
+                                return possibility;
+                            }
                         }
                     }
                 });
@@ -647,9 +655,11 @@ class pawn extends chesspiece{
             let saveKing = gameboard.get().saveTheKing();
             if(!saveKing[0]){
                 possibilities = possibilities.filter(function(possibility){
-                    for(let option of saveKing[1]){
-                        if(option[0]==possibility.x && option[1]==possibility.y){
-                            return possibility;
+                    if(saveKing[1]){
+                        for(let option of saveKing[1]){
+                            if(option[0]==possibility.x && option[1]==possibility.y){
+                                return possibility;
+                            }
                         }
                     }
                 });
@@ -710,9 +720,11 @@ class knight extends chesspiece{
         let saveKing = gameboard.get().saveTheKing();
         if(!saveKing[0]){
             possibilities = possibilities.filter(function(possibility){
-                for(let option of saveKing[1]){
-                    if(option[0]==possibility.x && option[1]==possibility.y){
-                        return possibility;
+                if(saveKing[1]){
+                    for(let option of saveKing[1]){
+                        if(option[0]==possibility.x && option[1]==possibility.y){
+                            return possibility;
+                        }
                     }
                 }
             });

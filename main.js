@@ -160,7 +160,7 @@ function draw(){
 
 				gamestate.piecemoving.x = gamestate.dst[0];
 				gamestate.piecemoving.y = gamestate.dst[1];
-				
+
 			}else if(gamestate.AImove){
 
 				gamestate.AImove = false;
@@ -172,8 +172,7 @@ function draw(){
 				gamestate.piecemoving.x = gamestate.dst[0];
 				gamestate.piecemoving.y = gamestate.dst[1];
 
-				
-				AI.nextmove();
+				gamestate.animation = "AI";
 			}
 		}
 
@@ -184,6 +183,9 @@ function draw(){
 		MouseInput.draw();
 		activemenus.draw();
 
+	}else if(gamestate.animation == "AI"){
+		// gamestate.animation = null;
+		AI.nextmove();
 	}else{
 		blit(0,0,canvas.width,canvas.height,chessboard);
 
