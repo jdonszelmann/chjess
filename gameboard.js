@@ -1197,7 +1197,7 @@ class gameboard{
             console.log("Look from here!");
             let checkmate = true;
             for(let piece of this.pieces){
-                if(piece.blackpiece == gamestate.playerblack && piece.options().length != 0){
+                if(piece.dead == false && piece.blackpiece == gamestate.playerblack && piece.options().length != 0){
                     console.log(piece);
                     checkmate = false;
                 }
