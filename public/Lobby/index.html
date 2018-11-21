@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lobby</title>
+    <link href="./lobby/css/index.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+    <div>
+        <h1>Lobby</h1><hr/>
+    </div>
+    <div class="container">
+        <div class="gameplayBox" onclick="join();"><p>Multi-Player!</p></div>
+        <div class="gameplayBox" onclick="solo();"><p>Single-Player!</p></div>
+    </div>
+
+    <script>
+        function join(){
+            open('/multi', '_self');
+        }
+        function solo(){
+            open("/solo", '_self');
+        }
+    </script>
+</body>
+</html>
