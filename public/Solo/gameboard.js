@@ -247,7 +247,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat(piece.x, piece.y + i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == rook || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy rook or queen.
-                            return [false, "y"];
+                            return [false, "y", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy rook or queen, so we can move it.
                             return [true];
@@ -267,7 +267,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat(piece.x, piece.y - i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == rook || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy rook or queen.
-                            return [false, "y"];
+                            return [false, "y", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy rook or queen, so we can move it.
                             return [true];
@@ -290,7 +290,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat(piece.x + i, piece.y);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == rook || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy rook or queen.
-                            return [false, "x"];
+                            return [false, "x", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy rook or queen, so we can move it.
                             return [true];
@@ -310,7 +310,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat(piece.x - i, piece.y);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == rook || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy rook or queen.
-                            return [false, "x"];
+                            return [false, "x", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy rook or queen, so we can move it.
                             return [true];
@@ -334,7 +334,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat(piece.x + i, piece.y + i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == bishop || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy bishop or queen.
-                            return [false, "x+y+"];
+                            return [false, "x+y+", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy bishop or queen, so we can move it.
                             return [true];
@@ -355,7 +355,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat(piece.x + i, piece.y - i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == bishop || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy bishop or queen.
-                            return [false, "x+y-"];
+                            return [false, "x+y-", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy bishop or queen, so we can move it.
                             return [true];
@@ -376,7 +376,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat(piece.x - i, piece.y + i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == bishop || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy bishop or queen.
-                            return [false, "x-y+"];
+                            return [false, "x-y+", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy bishop or queen, so we can move it.
                             return [true];
@@ -421,7 +421,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat(7-piece.x, (7-piece.y) - i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == rook || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy rook or queen.
-                            return [false, "y"];
+                            return [false, "y", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy rook or queen, so we can move it.
                             return [true];
@@ -441,7 +441,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat((7-piece.x), (7-piece.y) + i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == rook || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy rook or queen.
-                            return [false, "y"];
+                            return [false, "y", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy rook or queen, so we can move it.
                             return [true];
@@ -484,7 +484,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat((7-piece.x) + i, 7-piece.y);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == rook || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy rook or queen.
-                            return [false, "x"];
+                            return [false, "x", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy rook or queen, so we can move it.
                             return [true];
@@ -508,7 +508,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat((7-piece.x) - i, (7-piece.y) - i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == bishop || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy bishop or queen.
-                            return [false, "x+y+"];
+                            return [false, "x+y+", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy bishop or queen, so we can move it.
                             return [true];
@@ -529,7 +529,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat((7-piece.x) - i, (7-piece.y) + i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == bishop || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy bishop or queen.
-                            return [false, "x+y-"];
+                            return [false, "x+y-", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy bishop or queen, so we can move it.
                             return [true];
@@ -550,7 +550,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat((7-piece.x) + i, (7-piece.y) - i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == bishop || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy bishop or queen.
-                            return [false, "x-y+"];
+                            return [false, "x-y+", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy bishop or queen, so we can move it.
                             return [true];
@@ -571,7 +571,7 @@ class gameboard{
                         let enemyPiece = this.getpieceat((7-piece.x) + i, (7-piece.y) + i);
                         if (enemyPiece != null && enemyPiece.blackpiece != piece.blackpiece && (enemyPiece.constructor == bishop || enemyPiece.constructor == queen) && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and an enemy bishop or queen.
-                            return [false, "x-y-"];
+                            return [false, "x-y-", [enemyPiece.x, enemyPiece.y]];
                         } else if (enemyPiece != null && !enemyPiece.dead) {
                             //The piece we want to move is standing between the king and a piece that is not an enemy bishop or queen, so we can move it.
                             return [true];
