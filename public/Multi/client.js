@@ -42,10 +42,17 @@ socket.onmessage = function(evt){
     }
     if(message.move == true){
         if(gamestate.playerblack == false){
+            let oldpiece = gameboard.get().getpieceat(7-message.x, 7-message.y);
+            if(oldpiece != null){
+                oldpiece.kill();
+            }
             movepiece(message.x, message.y, gameboard.get().getpieceat(7-message.piece.x, 7-message.piece.y));
         } else {
+            let oldpiece = gameboard.get().getpieceat(message.x, message.y);
+            if(oldpiece != null){
+                oldpiece.kill();
+            }
             movepiece(message.x, message.y, gameboard.get().getpieceat(message.piece.x, message.piece.y));
-
         }
         if(message.piece.move){
             message.piece.move();

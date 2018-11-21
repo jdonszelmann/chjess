@@ -148,7 +148,7 @@ let AI = {
 	//AI assumes it is always black
 	nextmove:function(){
 
-		let move = this.filtermoves(5);
+		let move = this.filtermoves(4);
 
 		gamestate.playerblack = true;
 
