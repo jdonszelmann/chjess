@@ -1,20 +1,20 @@
 
 let piecemap = {
 	black:{
-		queen:"resources/queen-black.png",
-		king:"resources/king-black.png",
-		pawn:"resources/pawn-black.png",
-		rook:"resources/rook-black.png",
-		bishop:"resources/bishop-black.png",
-		knight:"resources/knight-black.png",
+		queen:"/Solo/resources/queen-black.png",
+		king:"/Solo/resources/king-black.png",
+		pawn:"/Solo/resources/pawn-black.png",
+		rook:"/Solo/resources/rook-black.png",
+		bishop:"/Solo/resources/bishop-black.png",
+		knight:"/Solo/resources/knight-black.png",
 	},
 	white:{
-		queen:"resources/queen-white.png",
-		king:"resources/king-white.png",
-		pawn:"resources/pawn-white.png",
-		rook:"resources/rook-white.png",
-		bishop:"resources/bishop-white.png",
-		knight:"resources/knight-white.png",
+		queen:"/Solo/resources/queen-white.png",
+		king:"/Solo/resources/king-white.png",
+		pawn:"/Solo/resources/pawn-white.png",
+		rook:"/Solo/resources/rook-white.png",
+		bishop:"/Solo/resources/bishop-white.png",
+		knight:"/Solo/resources/knight-white.png",
 	}
 }
 

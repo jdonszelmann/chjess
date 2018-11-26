@@ -65,10 +65,10 @@ function setup(){
 	document.getElementsByTagName("body")[0].style.backgroundColor = "rgb(51,51,51)"
 
 	whitechessboard = new Image();
-	whitechessboard.src = "resources/chessboard-black.png"
+	whitechessboard.src = "/Multi/resources/chessboard-black.png"
 
 	blackchessboard = new Image();
-	blackchessboard.src = "resources/chessboard-white.png"
+	blackchessboard.src = "/Multi/resources/chessboard-white.png"
 
 	//make room for chessclock
 	canvas.style.marginTop = 30;
