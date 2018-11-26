@@ -29,4 +29,17 @@ body{
     display: flex;
     flex-direction: row;
     height: inherit;
+    margin-bottom: 5px;
+}
+.factBox{
+    display: block;
+    min-width: auto;
+    height: auto;
+    width: 20%;
+    padding: 10px;
+    float: left;
+}
+.fact{
+    text-align: center;
+    font-style: oblique;
 }

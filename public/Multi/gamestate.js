@@ -36,7 +36,7 @@ function movepiece(x1,y1,piece){
 	gamestate.piecemoving = piece
 	if(yourTurn){
 
-        sendMove(piece, x1, y1);
+        startSocket.sendMove(piece, x1, y1);
 
     }
 }

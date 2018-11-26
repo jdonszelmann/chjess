@@ -146,7 +146,7 @@ let preconfiguredmenus = {
         });
         mainMenuTab.setAlternativeDraw(function () {
             let tabButton = new Image();
-            tabButton.src = "resources/MainMenuTab.png";
+            tabButton.src = "/Solo/resources/MainMenuTab.png";
             blit(this.x*gamestate.cellwidth, this.y*gamestate.cellwidth, this.w, this.h, tabButton);
         });
     },

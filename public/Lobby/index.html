@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lobby</title>
-    <link href="./lobby/css/index.css" type="text/css" rel="stylesheet"/>
+    <link href="./Lobby/css/index.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
     <div>
@@ -12,6 +12,15 @@
     <div class="container">
         <div class="gameplayBox" onclick="join();"><p>Multi-Player!</p></div>
         <div class="gameplayBox" onclick="solo();"><p>Single-Player!</p></div>
+    </div>
+    <div class="container" style="height: auto; display: block;">
+        <h2 style="padding: 10px">The facts:</h2></h1><hr/>
+        <div class="factBox" id="playersOnline"><h3>Players currently online: </h3><p class="fact">Unknown</p></div>
+        <div class="factBox" id="playerInQueue"><h3>Is there a player in the queue?</h3><p class="fact">Unknown</p></div>
+        <div class="factBox" id="gamesPlayed"><h3>Multiplayer chjess games played: </h3><p class="fact">Unknown</p></div>
+        <div class="factBox" id="gamesBeingPlayed"><h3>Currently ongoing games: </h3><p class="fact">Unknown</p></div>
+        <div class="factBox" id="timePlayed"><h3>Total amount of time procrastinated:</h3><p class="fact">Unknown</p></div>
+        <div class="factBox" id="timeInQueue"><h3>Total amount of wasted minutes:</h3><p class="fact">Unknown</p></div>
     </div>
 
     <script>
@@ -22,5 +31,6 @@
             open("/solo", '_self');
         }
     </script>
+    <script src="./Lobby/scripts/facts.js"></script>
 </body>
 </html>

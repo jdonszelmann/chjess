@@ -10,7 +10,7 @@ router.post('/', function(req, res) {
 });
 router.get('/', function(req, res){
     console.log("Someone joined the lobby!");
-    res.sendFile('/lobby/index.html' , { root : path.resolve(__dirname+"/../public")});
+    res.sendFile('/Lobby/index.html' , { root : path.resolve(__dirname+"/../public")});
 });
 
 module.exports = router;

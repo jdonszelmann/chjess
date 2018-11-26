@@ -1,3 +1,19 @@
+let socket;
+let clientIP;
+let http = new XMLHttpRequest();
+http.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        let res = JSON.parse(this.responseText);
+        clientIP = res.address;
+        startSocket.start();
+    }
+};
+http.open("GET", "https://v6.ident.me/.json", true);
+http.send();
+
+let matchmaking = true;
+let yourTurn;
+
 let stopWaiting = function (){
     waiting(false);
     document.getElementById("matchmaking-status").innerHTML = "Matchmaking, please wait..";
@@ -13,62 +29,73 @@ function waiting(boolean){
         img.style.webkitAnimation = "";
     }
 }
-function closeGame(){
-    socket.onclose = function(){};
-    socket.close();
-    open('../', '_self');
-}
-function sendMove(piece, x, y){
-    socket.send(JSON.stringify({move: true, piece: piece, x: x, y: y}));
-}
-let matchmaking = true;
-let yourTurn;
-let socket = new WebSocket("ws://192.168.178.14:8005");
-waiting(true);
-socket.onmessage = function(evt){
-    let message = JSON.parse(evt.data);
-    if(message.matchmaked == true){
-        let id = setTimeout(function () {}, 0);
-        while(id--){
-            clearTimeout(id);
-        }
-        stopWaiting();
-        yourTurn = message.yourTurn;
-        gamestate.playerblack = message.playerblack;
-        matchmaking = false;
-    }
-    if(message.closed == true){
-        closeGame();
-    }
-    if(message.move == true){
-        if(gamestate.playerblack == false){
-            let oldpiece = gameboard.get().getpieceat(7-message.x, 7-message.y);
-            if(oldpiece != null){
-                oldpiece.kill();
-            }
-            movepiece(message.x, message.y, gameboard.get().getpieceat(7-message.piece.x, 7-message.piece.y));
-        } else {
-            let oldpiece = gameboard.get().getpieceat(message.x, message.y);
-            if(oldpiece != null){
-                oldpiece.kill();
-            }
-            movepiece(message.x, message.y, gameboard.get().getpieceat(message.piece.x, message.piece.y));
-        }
-        if(message.piece.move){
-            message.piece.move();
-        }
-        console.log(message.piece);
-        console.log(message.x);
-        console.log(message.y);
-        yourTurn = true;
-    }
-};
+let startSocket = {
+    closeGame: function () {
+        socket.onclose = function () {
+        };
+        socket.close();
+        open('../', '_self');
+    },
 
-setTimeout(function () {
-    document.getElementById("matchmaking-status").innerHTML = "There were not enough players to match, try again later.";
-}, 60000);
+    sendMove: function (piece, x, y) {
+        socket.send(JSON.stringify({move: true, piece: piece, x: x, y: y}));
+    },
 
-setTimeout(function(){
-    stopWaiting();
-    closeGame();
-}, 65000);
+    start: function() {
+        socket = new WebSocket("ws://" + window.location.hostname + ":8005");
+        waiting(true);
+        socket.onmessage = function (evt) {
+            let message = JSON.parse(evt.data);
+            if (message.id == clientIP || window.location.hostname == 'localhost') {
+                if (message.matchmaked == true) {
+                    let id = setTimeout(function () {
+                    }, 0);
+                    while (id--) {
+                        clearTimeout(id);
+                    }
+                    stopWaiting();
+                    yourTurn = message.yourTurn;
+                    gamestate.playerblack = message.playerblack;
+                    matchmaking = false;
+                }
+                if (message.closed == true) {
+                    startSocket.closeGame();
+                }
+                if (message.move == true) {
+                    if (gamestate.playerblack == false) {
+                        let oldpiece = gameboard.get().getpieceat(7 - message.x, 7 - message.y);
+                        if (oldpiece != null) {
+                            oldpiece.kill();
+                        }
+                        movepiece(message.x, message.y, gameboard.get().getpieceat(7 - message.piece.x, 7 - message.piece.y));
+                    } else {
+                        let oldpiece = gameboard.get().getpieceat(message.x, message.y);
+                        if (oldpiece != null) {
+                            oldpiece.kill();
+                        }
+                        movepiece(message.x, message.y, gameboard.get().getpieceat(message.piece.x, message.piece.y));
+                    }
+                    if (message.piece.move) {
+                        message.piece.move();
+                    }
+                    console.log(message.piece);
+                    console.log(message.x);
+                    console.log(message.y);
+                    yourTurn = true;
+                }
+            } else {
+                console.log("IP send by server: " + message.id);
+                console.log("My IP: " + clientIP);
+            }
+        };
+
+        setTimeout(function () {
+            document.getElementById("matchmaking-status").innerHTML = "There were not enough players to match, try again later.";
+        }, 60000);
+
+        setTimeout(function () {
+            stopWaiting();
+            startSocket.closeGame();
+        }, 65000);
+    }
+}
