@@ -1,24 +1,35 @@
 module.exports.lists = {
     gameList: [],
-    lobbyList: [],
+    openLobbyList: [],
+    privateLobbyList: [],
     playList: []
 }
 
 const lists = require('./Game').lists;
 module.exports.Game = class Game{
-    constructor(sock){
-        let date = new Date();
-        this.startQueueTime = [date.getHours(), date.getMinutes(), date.getSeconds()];
-        this.startPlayTime = [-1,-1,-1];
-        this.playerOne = sock;
-        this.lobby = true;
-        this.gLInstance = lists.gameList.push(this);
-        this.lLInstance = lists.lobbyList.push(this);
-        console.log(this.playerOne._socket.remoteAddress + " is looking for match.");
+    constructor(sock, lobbyID=null){
+        if(lobbyID===null) {
+            let date = new Date();
+            this.startQueueTime = [date.getHours(), date.getMinutes(), date.getSeconds()];
+            this.startPlayTime = [-1, -1, -1];
+            this.playerOne = sock;
+            this.lobby = true;
+            this.gLInstance = lists.gameList.push(this);
+            this.lLInstance = lists.openLobbyList.push(this);
+            console.log(this.playerOne._socket.remoteAddress + " is looking for match.");
+        } else {
+            let date = new Date();
+            this.startQueueTime = [date.getHours(), date.getMinutes(), date.getSeconds()];
+            this.startPlayTime = [-1, -1, -1];
+            this.lobby = true;
+            this.lobbyID = lobbyID;
+            this.boss = sock;
+            console.log("Private lobby "+this.lobbyID+" started");
+        }
     }
     join(rival){
         if(this.lobby) {
-            lists.lobbyList.splice(this.lLInstance-1, 1);
+            lists.openLobbyList.splice(this.lLInstance-1, 1);
             this.pLInstance = lists.playList.push(this);
             this.playerTwo = rival;
             this.lobby = false;
@@ -65,11 +76,14 @@ module.exports.Game = class Game{
             this.playerOne.close();
         if(this.playerTwo && this.playerTwo.readyState != this.playerTwo.CLOSED)
             this.playerTwo.close();
-        lists.gameList.splice(this.gLInstance-1, 1);
-        if(this.lobby){
-            lists.lobbyList.splice(this.lLInstance-1, 1);
-        } else {
-            lists.playList.splice(this.pLInstance - 1, 1);
+
+        if(!this.lobbyID) {
+            lists.gameList.splice(this.gLInstance - 1, 1);
+            if (this.lobby) {
+                lists.openLobbyList.splice(this.lLInstance - 1, 1);
+            } else {
+                lists.playList.splice(this.pLInstance - 1, 1);
+            }
         }
     }
     timeDifferenceInMinutes(begin, end){
@@ -90,5 +104,10 @@ module.exports.Game = class Game{
         }
         let minutes = Math.round(difference[0]*60+difference[1]+difference[2]/60);
         return minutes;
+    }
+
+    /* functions below are for private rooms only */
+    getStarter(){
+        this.boss.send(JSON.stringify({type: "matchmaked", gameID: this.lobbyID}));
     }
 }

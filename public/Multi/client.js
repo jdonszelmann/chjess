@@ -42,7 +42,7 @@ let startSocket = {
     },
 
     start: function() {
-        socket = new WebSocket("ws://" + window.location.hostname + ":8005");
+        socket = new WebSocket("ws://" + window.location.hostname+":8005/"+window.location.pathname.substr(7));
         waiting(true);
         socket.onmessage = function (evt) {
             let message = JSON.parse(evt.data);
@@ -82,6 +82,9 @@ let startSocket = {
                     console.log(message.x);
                     console.log(message.y);
                     yourTurn = true;
+                }
+                if(message.matchmaked === false){
+                    open("http://"+window.location.hostname+":8001", "_self");
                 }
             } else {
                 console.log("IP send by server: " + message.id);
