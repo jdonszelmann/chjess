@@ -43,3 +43,40 @@ body{
     text-align: center;
     font-style: oblique;
 }
+#popup{
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width:80%;
+    min-height: 3cm;
+    height: 15vh;
+    box-shadow: rgba(0,0,0,0.2) 0px 0px 0px 1px;
+    background-color: rgba(250, 250, 250, 1);
+}
+#popup h3{
+    min-height: 0.5cm;
+    height: 3vh;
+    padding: 5px;
+}
+
+/* Loading circle */
+#loading-container{
+    flex: 1;
+    visibility: hidden;
+    min-height: 2.4cm;
+    height:11vh;
+    text-align: center;
+    padding:5px;
+}
+#loading-bar{
+    height: 100%;
+}
+@-webkit-keyframes loading{
+    from {transform: rotate(0deg); translate(-50%, -50%)}
+    to {transform: rotate(359deg); translate(-50%, -50%)}
+}
