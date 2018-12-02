@@ -88,7 +88,7 @@ wssGame.on("connection", function(ws, req){
     }
 });
 wssLobby.on("connection", function (ws, req) {
-   let playingGames = Game.lists.gameList.length;
+   let playingGames = Game.lists.gameList.length + Object.keys(Game.lists.privateLobbyList).length;
    let InQueue = ((Game.lists.openLobbyList.length >0)? true : false);
    let playersOnline = wssGame.clients.size + wssLobby.clients.size;
    let gamesPlayed = Game.lists.gamesPlayed;
@@ -105,18 +105,24 @@ wssLobby.on("connection", function (ws, req) {
             }while(Game.lists.privateLobbyList[lobbyID]!==undefined);
             Game.lists.privateLobbyList[lobbyID] = new Game.Game(ws, lobbyID);
             ws.send(JSON.stringify({type: "gameID", gameID: lobbyID}));
+            ws.onclose = function () {
+                if(Game.lists.privateLobbyList[lobbyID].playerTwo === undefined){
+                    delete Game.lists.privateLobbyList[lobbyID];
+                    console.log("Private lobby "+lobbyID+" stopped");
+                }
+            }
         }
    };
 });
 
 function sendFacts() {
-    let playingGames = Game.lists.gameList.length;
+    let playingGames = Game.lists.gameList.length + Object.keys(Game.lists.privateLobbyList).length;
     let InQueue = ((Game.lists.openLobbyList.length >0)? true : false);
     let playersOnline = wssGame.clients.size + wssLobby.clients.size;
     let gamesPlayed = Game.lists.gamesPlayed;
     let timePlayed = Game.lists.timePlayed;
     let timeInQueue = Game.lists.timeInQueue;
-    let json = JSON.stringify({type: "facts",playersOnline: playersOnline, playerInQueue: InQueue, gamesBeingPlayed: playingGames, gamesPlayed: gamesPlayed, timePlayed: timePlayed, timeInQueue: timeInQueue});
+    let json = JSON.stringify({type: "facts", playersOnline: playersOnline, playerInQueue: InQueue, gamesBeingPlayed: playingGames, gamesPlayed: gamesPlayed, timePlayed: timePlayed, timeInQueue: timeInQueue});
     for(let ws of wssLobby.clients){
         ws.send(json);
     }

@@ -84,6 +84,8 @@ module.exports.Game = class Game{
             } else {
                 lists.playList.splice(this.pLInstance - 1, 1);
             }
+        } else {
+            delete lists.privateLobbyList[this.lobbyID];
         }
     }
     timeDifferenceInMinutes(begin, end){
