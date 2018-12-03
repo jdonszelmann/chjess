@@ -1,3 +1,5 @@
+let popup = document.getElementById('popup');
+let profile;
 let socket = new WebSocket("ws://"+window.location.hostname+":8006");
 socket.onmessage = function (evt) {
     let message = JSON.parse(evt.data);
@@ -15,7 +17,9 @@ socket.onmessage = function (evt) {
         open("http://"+window.location.hostname+":8001/multi/"+message.gameID, "_self");
     }
 }
-function getPrivatID(){
+
+//  Function to reserve a private lobby for you and a friend
+function getPrivateLobby(){
     popup.innerHTML = '<h3>Getting you a private room!</h3><hr/>' +
         '<div id="loading-container"><img src="/Lobby/Vector_Loading.svg" id="loading-bar"></div>';
     popup.style.visibility = "visible";
@@ -23,7 +27,7 @@ function getPrivatID(){
     socket.send(JSON.stringify({req: "privateLobby"}));
 }
 
-// Javascript for loading circle
+//  Javascript for the loading circle
 function waiting(boolean){
     let img = document.getElementById("loading-bar");
     let imgC = document.getElementById("loading-container");
@@ -35,3 +39,28 @@ function waiting(boolean){
         img.style.webkitAnimation = "";
     }
 }
+
+//  Javascript for displaying account info
+function onSignIn(googleUser) {
+    profile = googleUser.getBasicProfile();
+    document.getElementsByClassName("g-acc-info")[0].innerHTML = "<img class='g-acc-img' src='"+profile.getImageUrl()+"'/><h4 class='g-acc-name'>"+profile.getName()+"</h4>";
+    document.getElementsByClassName("g-signin2")[0].style.visibility = "hidden";
+    document.getElementsByClassName("g-acc")[0].style.visibility = "visible";
+    document.getElementsByClassName("g-acc")[0].addEventListener("mouseenter",function () {
+        document.getElementsByClassName("g-acc")[0].style.height = "10vh";
+    });
+    document.getElementsByClassName("g-acc")[0].addEventListener("mouseleave",function () {
+        document.getElementsByClassName("g-acc")[0].style.height = "5vh";
+    });
+
+}
+function SignOut() {
+    let auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        profile = null;
+        document.getElementsByClassName("g-signin2")[0].style.visibility = "visible";
+        document.getElementsByClassName("g-acc")[0].style.visibility = "hidden";
+        document.getElementsByClassName("g-acc-info")[0].innerHTML = "";
+    });
+}
+

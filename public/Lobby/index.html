@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="684683112742-5o3o8gkmmjku2fj1lh3g2e0h0gj6jgbo.apps.googleusercontent.com">
     <title>Lobby</title>
     <link href="./Lobby/css/index.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-    <div>
-        <h1>Lobby</h1><hr/>
+    <div id="top-bar">
+        <h1 style="float: left;">Lobby</h1><div class="g-signin2" data-onsuccess="onSignIn"></div><div class="g-acc"><div class="g-acc-info"></div><div class="g-signout" onclick="SignOut();">Sign out</div></div>
     </div>
     <div class="container">
-        <div class="gameplayBox" onclick="openLobby();"><p>Open Lobby!</p></div>
-        <div class="gameplayBox" onclick="getPrivatID();"><p>Private Lobby!</p></div>
-        <div class="gameplayBox" onclick="solo();"><p>Single-Player!</p></div>
+        <div class="gameplayBox" onclick="location.href='/Multi/'"><p>Open Lobby!</p></div>
+        <div class="gameplayBox" onclick="getPrivateLobby();"><p>Private Lobby!</p></div>
+        <div class="gameplayBox" onclick="location.href='/solo'"><p>Single-Player!</p></div>
     </div>
     <div class="container" style="height: auto; display: block;">
         <h2 style="padding: 10px">The facts:</h2></h1><hr/>
@@ -24,15 +25,7 @@
         <div class="factBox" id="timeInQueue"><h3>Total amount of wasted minutes:</h3><p class="fact">Unknown</p></div>
     </div>
     <div id="popup"></div>
-    <script>
-        let popup = document.getElementById('popup');
-        function openLobby(){
-            open('/Multi/', '_self');
-        }
-        function solo(){
-            open("/solo", '_self');
-        }
-    </script>
     <script src="./Lobby/scripts/connection.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 </html>
