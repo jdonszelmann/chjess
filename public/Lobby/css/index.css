@@ -12,6 +12,12 @@ body{
     display: flex;
     flex-direction: column;
 }
+#top-bar{
+    min-height: 46px;
+    max-height: 96px;
+    height: 5vh;
+    border-bottom: 1px solid black;
+}
 .gameplayBox{
     width: 40%;
     height: 30%;
@@ -20,6 +26,7 @@ body{
     background-color: #d9d9d9;
     margin: 5%;
     padding: 2%;
+    cursor: pointer;
 }
 .gameplayBox p{
     margin:auto;
@@ -79,4 +86,72 @@ body{
 @-webkit-keyframes loading{
     from {transform: rotate(0deg); translate(-50%, -50%)}
     to {transform: rotate(359deg); translate(-50%, -50%)}
+}
+
+/*  Sign in / Sign out buttons / Account info    */
+/*  Sign in button  */
+.g-signin2{
+    float: right;
+    min-height:46px;
+    max-height: 96px;
+    height:5vh;
+    display: flex;
+    align-items:center;
+    padding-right:10px;
+}
+/*  Google Account Info */
+.g-acc-info{
+    display:flex;
+    flex-direction: row;
+    min-height:46px;
+    height:5vh;
+    max-height:96px;
+    width:100%;
+}
+.g-acc-img{
+    max-height:96px;
+    min-height:46px;
+    height:5vh;
+    float:left;
+}
+.g-acc-name{
+    flex:1;
+    min-width:auto;
+    padding: 0px 10px 0px 10px;
+    max-height:96px;
+    min-height: 46px;
+    transform: translateY(25%);
+    text-align: center;
+}
+.g-signout{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    width:100%;
+    min-height:46px;
+    max-height:96px;
+    height:5vh;
+    text-align: center;
+    cursor:pointer;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.g-acc{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right:0;
+    top:0;
+    visibility: hidden;
+    max-height: 96px;
+    min-height:46px;
+    height:5vh;
+    min-width:150px;
+    overflow: hidden;
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    -ms-transition: height 0.2s;
+    -o-transition: height 0.2s;
+    transition: height 0.2s;
 }
