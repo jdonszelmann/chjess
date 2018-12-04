@@ -22,12 +22,12 @@ app.use('/multi', MultiRouter);
 app.use('/', lobbyRouter);
 
 let wssLobbyServer = https.createServer(options,app);
-const wssLobby = new WebSocket.Server({server: wssLobbyServer});
-wssLobbyServer.listen(8006);
+const wssLobby = new WebSocket.Server({port:8006});
+wssLobbyServer.listen();
 
 let wssGameServer = https.createServer(options, app);
-const wssGame = new WebSocket.Server({server: wssGameServer});
-wssGameServer.listen(8005);
+const wssGame = new WebSocket.Server({port:8005});
+wssGameServer.listen();
 
 //Read the saved stats from the facts.json file
 fs.readFile("./facts.json", "utf8", function(err, data){

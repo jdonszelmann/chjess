@@ -42,7 +42,7 @@ let startSocket = {
     },
 
     start: function() {
-        socket = new WebSocket("wss://" + window.location.hostname+":8005/"+window.location.pathname.substr(7));
+        socket = new WebSocket("ws://" + window.location.hostname+":8005/"+window.location.pathname.substr(7));
         waiting(true);
         socket.onmessage = function (evt) {
             let message = JSON.parse(evt.data);
