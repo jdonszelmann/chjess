@@ -1,6 +1,6 @@
 let popup = document.getElementById('popup');
 let profile;
-let socket = new WebSocket("ws://"+window.location.hostname+":8006");
+let socket = new WebSocket("wss://"+window.location.hostname+":8006");
 socket.onmessage = function (evt) {
     let message = JSON.parse(evt.data);
     if(message.type == "facts") {
@@ -49,7 +49,7 @@ function onSignIn(googleUser) {
     document.getElementsByClassName("g-acc")[0].addEventListener("mouseenter",function () {
         document.getElementsByClassName("g-acc")[0].style.height = "10vh";
     });
-    document.getElementsByClassName("g-acc")[0].addEventListener("mouseleave",function () {
+    document.getElementsByClassName("g-acc")[0].addEventListener("mouseleavea",function () {
         document.getElementsByClassName("g-acc")[0].style.height = "5vh";
     });
 
