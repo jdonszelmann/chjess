@@ -95,5 +95,4 @@ function onListening() {
 
 module.exports = {
     server,
-    options,
 }
