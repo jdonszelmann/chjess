@@ -8,7 +8,7 @@ http.onreadystatechange = function() {
         startSocket.start();
     }
 };
-http.open("GET", "https://v6.ident.me/.json", true);
+http.open("GET", "https://v4.ident.me/.json", true);
 http.send();
 
 let matchmaking = true;
@@ -42,11 +42,11 @@ let startSocket = {
     },
 
     start: function() {
-        socket = new WebSocket("ws://" + window.location.hostname+":8005/"+window.location.pathname.substr(7));
+        socket = new WebSocket("wss://" + window.location.hostname+":8005/"+window.location.pathname.substr(7));
         waiting(true);
         socket.onmessage = function (evt) {
             let message = JSON.parse(evt.data);
-            if (message.id == clientIP || window.location.hostname == 'localhost') {
+            if (message.id == clientIP || window.location.hostname == 'localhost' || window.location.hostname == 'lvh.me') {
                 if (message.matchmaked == true) {
                     let id = setTimeout(function () {
                     }, 0);
