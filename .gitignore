@@ -3,6 +3,8 @@ node_modules/
 start.sh
 stop.sh
 chjess.iml
+facts.json
+users.json
 *.key
 *.cert
 *.pem
