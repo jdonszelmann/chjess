@@ -7,27 +7,13 @@ var logger = require('morgan');
 var lobbyRouter = require('./routes/lobby');
 var gameRouter = require('./routes/game');
 var MultiRouter = require('./routes/multi');
-const https = require('https');
 const fs = require('fs');
-let {server, options, portHTTPS} = require('./bin/www');
 
-var app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/solo', gameRouter);
-app.use('/multi', MultiRouter);
-app.use('/', lobbyRouter);
 
-let wssLobbyServer = https.createServer(options,app);
-const wssLobby = new WebSocket.Server({server: wssLobbyServer});
-wssLobbyServer.listen(8006);
 
-let wssGameServer = https.createServer(options, app);
-const wssGame = new WebSocket.Server({server: wssGameServer});
-wssGameServer.listen(8005);
+const wssLobby = new WebSocket.Server({port:8006});
+const wssGame = new WebSocket.Server({port:8005});
 
 //Read the saved stats from the facts.json file
 fs.readFile("./facts.json", "utf8", function(err, data){
@@ -155,12 +141,19 @@ function storeFacts() {
 
 }
 
-
-
-
 logger('combined', {
     skip: function (req, res) { return res.statusCode < 400 }
-})
+});
 
+var app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/solo', gameRouter);
+app.use('/multi', MultiRouter);
+app.use('/', lobbyRouter);
 
 module.exports = app;

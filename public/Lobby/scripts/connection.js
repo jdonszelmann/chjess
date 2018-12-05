@@ -1,6 +1,6 @@
 let popup = document.getElementById('popup');
 let profile;
-let socket = new WebSocket("wss://"+window.location.hostname+":8006");
+let socket = new WebSocket("ws://"+window.location.hostname+":8006");
 socket.onmessage = function (evt) {
     let message = JSON.parse(evt.data);
     if(message.type == "facts") {
@@ -12,7 +12,7 @@ socket.onmessage = function (evt) {
         document.getElementById("timeInQueue").getElementsByTagName("p")[0].innerHTML = message.timeInQueue + " minutes";
     } else if (message.type == "gameID"){
         waiting(0);
-        popup.innerHTML = "<h3>Give this link to your friend!</h3><hr/><textarea readonly>http://"+window.location.hostname+":8001/multi/"+message.gameID+"</textarea>";
+        popup.innerHTML = "<h3>Give this link to your friend!</h3><hr/><textarea readonly onclick=\"this.focus();this.select()\">http://"+window.location.hostname+":8001/multi/"+message.gameID+"</textarea>";
     } else if (message.type == "matchmaked"){
         open("http://"+window.location.hostname+":8001/multi/"+message.gameID, "_self");
     }
@@ -44,22 +44,22 @@ function waiting(boolean){
 function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
     document.getElementsByClassName("g-acc-info")[0].innerHTML = "<img class='g-acc-img' src='"+profile.getImageUrl()+"'/><h4 class='g-acc-name'>"+profile.getName()+"</h4>";
-    document.getElementsByClassName("g-signin2")[0].style.visibility = "hidden";
-    document.getElementsByClassName("g-acc")[0].style.visibility = "visible";
-    document.getElementsByClassName("g-acc")[0].addEventListener("mouseenter",function () {
-        document.getElementsByClassName("g-acc")[0].style.height = "10vh";
-    });
-    document.getElementsByClassName("g-acc")[0].addEventListener("mouseleavea",function () {
-        document.getElementsByClassName("g-acc")[0].style.height = "5vh";
-    });
+    document.getElementsByClassName("g-signin2")[0].style.display = "none";
+    document.getElementsByClassName("g-acc")[0].style.display = "flex";
+    // document.getElementsByClassName("g-acc")[0].addEventListener("mouseenter",function () {
+    //     document.getElementsByClassName("g-acc")[0].style.height = "10vh";
+    // });
+    // document.getElementsByClassName("g-acc")[0].addEventListener("mouseleavea",function () {
+    //     document.getElementsByClassName("g-acc")[0].style.height = "5vh";
+    // });
 
 }
 function SignOut() {
     let auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         profile = null;
-        document.getElementsByClassName("g-signin2")[0].style.visibility = "visible";
-        document.getElementsByClassName("g-acc")[0].style.visibility = "hidden";
+        document.getElementsByClassName("g-signin2")[0].style.display = "";
+        document.getElementsByClassName("g-acc")[0].style.display = "none";
         document.getElementsByClassName("g-acc-info")[0].innerHTML = "";
     });
 }
