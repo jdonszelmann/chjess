@@ -12,8 +12,8 @@ body{
     grid-template-rows: 200px auto 200px;
     grid-gap: 20px;
 
+    font-family: monospace;
 
-    font-family: 'monospace';
     font-size: 20px;
     background-image:url("../media/chess.jpg");
     background-repeat: no-repeat;
@@ -21,6 +21,9 @@ body{
 }
 
 #factscontainer{
+    display: flex;
+    flex-direction: column;
+
     border:3px solid rgba(51,51,51,1);
     border-radius: 5px;
     background-color: rgba(51,51,51,0.3); 
@@ -30,7 +33,6 @@ body{
 
     grid-row-start: 1;
     grid-row-end: 4;
-
 }
 
 #facts{
@@ -42,6 +44,7 @@ body{
     padding: 10px;
     grid-column-start: 1;
     grid-column-end: 2;
+    text-align:center;
 }
 
 .fact{
@@ -50,6 +53,10 @@ body{
 }
 
 .gameplayBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
     font-size: 30px;
     padding: 2%;
     margin:10px;
@@ -65,7 +72,6 @@ body{
 }
 
 .gameplayBox:hover{
-
     margin:2px;
     background: rgba(51,51,51,.5);
     -moz-transition: all 1s;
@@ -75,12 +81,6 @@ body{
 
 .gameplayBox>*{
     color:rgba(51,51,51,1);
-
-    text-align: center;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%); 
-    position: relative;
 }
 
 #private{
@@ -109,10 +109,8 @@ body{
     border:3px solid rgba(51,51,51,1);
     border-radius: 3px; 
     margin:10px;
-
-    color:rgba(51,51,51);
+    color:rgba(51,51,51, 1);
 }
-
 
 #top-bar>*{
     position: relative;
@@ -122,6 +120,11 @@ body{
 
 
 #loginbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
     background:rgba(51,51,51,0.3);
     border:3px solid rgba(51,51,51,1);
     border-radius: 3px; 
@@ -129,22 +132,13 @@ body{
 
     padding:0px;
 
-    color:rgba(51,51,51);
+    color:rgba(51,51,51, 1);
 
     grid-column-start: 4;
     grid-column-end: 5;
 
     grid-row-start: 1;
     grid-row-end: 2;  
-}
-
-#loginbox > *{
-    position: relative;
-    text-align: center;
-    margin:auto;
-
-    display:flex;
-    justify-content:center;
 }
 
 #popup{
@@ -199,22 +193,24 @@ body{
     max-height: 96px;
     height:5vh;
     display: flex;
+    flex:1;
     align-items:center;
     padding-right:10px;
 }
 /*  Google Account Info */
 .g-acc-info{
     display:flex;
+    flex:1;
     flex-direction: row;
+    align-items:center;
     min-height:46px;
-    height:5vh;
     max-height:96px;
     width:100%;
 }
 .g-acc-img{
-    max-height:96px;
+    max-height:80%;
     min-height:46px;
-    height:5vh;
+    width:auto;
     float:left;
 }
 .g-acc-name{
@@ -234,20 +230,14 @@ body{
     min-height:46px;
     max-height:96px;
     height:5vh;
-    text-align: center;
     cursor:pointer;
 
 }
 .g-acc{
     display: flex;
+    flex: 1;
     flex-direction: column;
-    position: absolute;
-    right:0;
-    top:0;
-    visibility: hidden;
-    max-height: 96px;
     min-height:46px;
-    height:5vh;
+    height:10vh;
     min-width:150px;
-
 }

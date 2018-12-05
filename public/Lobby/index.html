@@ -15,17 +15,19 @@
     <div id="single" class="gameplayBox" onclick="location.href='/solo'"><p>Single-Player!</p></div>
     <div id="factscontainer">
         <h2 id="facts">The facts:</h2></h1><hr/>
-        <div class="factBox" id="playersOnline"><h3>Players currently online: </h3><p class="fact">Unknown</p></div>
-        <div class="factBox" id="playerInQueue"><h3>Is there a player in the queue?</h3><p class="fact">Unknown</p></div>
-        <div class="factBox" id="gamesPlayed"><h3>Multiplayer chjess games played: </h3><p class="fact">Unknown</p></div>
-        <div class="factBox" id="gamesBeingPlayed"><h3>Currently ongoing games: </h3><p class="fact">Unknown</p></div>
-        <div class="factBox" id="timePlayed"><h3>Total amount of time procrastinated:</h3><p class="fact">Unknown</p></div>
-        <div class="factBox" id="timeInQueue"><h3>Total amount of wasted minutes:</h3><p class="fact">Unknown</p></div>
+        <div style="flex:1; justify-content: space-evenly; display: flex; flex-direction: column;">
+            <div class="factBox" id="playersOnline"><h3>Players currently online: </h3><p class="fact">Unknown</p></div>
+            <div class="factBox" id="playerInQueue"><h3>Is there a player in the queue?</h3><p class="fact">Unknown</p></div>
+            <div class="factBox" id="gamesPlayed"><h3>Multiplayer chjess games played: </h3><p class="fact">Unknown</p></div>
+            <div class="factBox" id="gamesBeingPlayed"><h3>Currently ongoing games: </h3><p class="fact">Unknown</p></div>
+            <div class="factBox" id="timePlayed"><h3>Total amount of time procrastinated:</h3><p class="fact">Unknown</p></div>
+            <div class="factBox" id="timeInQueue"><h3>Total amount of wasted minutes:</h3><p class="fact">Unknown</p></div>
+        </div>
      </div>
     <div id="popup"></div>
     <div id="loginbox">
        <h1>Login</h1>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div><div class="g-acc"><div class="g-acc-info"></div><div class="g-signout" onclick="SignOut();">Sign out</div></div>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div><div class="g-acc" style="display: none !important;"><div class="g-acc-info"></div><div class="g-signout" onclick="SignOut();">Sign out</div></div>
     </div>
     <script src="./Lobby/scripts/connection.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>

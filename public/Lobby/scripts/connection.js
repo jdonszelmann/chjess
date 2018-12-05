@@ -44,22 +44,22 @@ function waiting(boolean){
 function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
     document.getElementsByClassName("g-acc-info")[0].innerHTML = "<img class='g-acc-img' src='"+profile.getImageUrl()+"'/><h4 class='g-acc-name'>"+profile.getName()+"</h4>";
-    document.getElementsByClassName("g-signin2")[0].style.visibility = "hidden";
-    document.getElementsByClassName("g-acc")[0].style.visibility = "visible";
-    document.getElementsByClassName("g-acc")[0].addEventListener("mouseenter",function () {
-        document.getElementsByClassName("g-acc")[0].style.height = "10vh";
-    });
-    document.getElementsByClassName("g-acc")[0].addEventListener("mouseleavea",function () {
-        document.getElementsByClassName("g-acc")[0].style.height = "5vh";
-    });
+    document.getElementsByClassName("g-signin2")[0].style.display = "none";
+    document.getElementsByClassName("g-acc")[0].style.display = "flex";
+    // document.getElementsByClassName("g-acc")[0].addEventListener("mouseenter",function () {
+    //     document.getElementsByClassName("g-acc")[0].style.height = "10vh";
+    // });
+    // document.getElementsByClassName("g-acc")[0].addEventListener("mouseleavea",function () {
+    //     document.getElementsByClassName("g-acc")[0].style.height = "5vh";
+    // });
 
 }
 function SignOut() {
     let auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         profile = null;
-        document.getElementsByClassName("g-signin2")[0].style.visibility = "visible";
-        document.getElementsByClassName("g-acc")[0].style.visibility = "hidden";
+        document.getElementsByClassName("g-signin2")[0].style.display = "";
+        document.getElementsByClassName("g-acc")[0].style.display = "none";
         document.getElementsByClassName("g-acc-info")[0].innerHTML = "";
     });
 }

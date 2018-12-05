@@ -4,19 +4,16 @@
  * Module dependencies.
  */
 
-let fs = require('fs');
 var app = require('../app');
 var debug = require('debug')('chjess-server:server');
 const http = require('http');
-const https = require('https');
 
 /**
  * Get port from environment and store in Express.
  */
 
-let portHTTP = normalizePort(process.env.PORT || '8001');
-app.set('port', portHTTP);
-
+let port = normalizePort(process.env.PORT || '8001');
+app.set('port', port);
 
 /**
  *  Create HTTP server
@@ -28,7 +25,8 @@ let server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(portHTTP, "0.0.0.0");
+
+server.listen(port, "0.0.0.0");
 
 server.on('error', onError);
 server.on('listening', onListening);
@@ -62,9 +60,9 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof portHTTPS === 'string'
-    ? 'Pipe ' + portHTTPS
-    : 'Port ' + portHTTPS;
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -91,8 +89,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-}
-
-module.exports = {
-    server,
 }
