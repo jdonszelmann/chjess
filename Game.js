@@ -50,8 +50,8 @@ module.exports.Game = class Game{
         this.startPlayTime = [date.getHours(), date.getMinutes(), date.getSeconds()];
         lists.timeInQueue += this.timeDifferenceInMinutes(this.startQueueTime, this.startPlayTime);
         lists.gamesPlayed++;
-        this.playerOne.send(JSON.stringify({id: this.playerTwo._socket.remoteAddress, matchmaked: true, yourTurn: true, playerblack: false}));
-        this.playerTwo.send(JSON.stringify({id: this.playerOne._socket.remoteAddress, matchmaked: true, yourTurn: false, playerblack: true}));
+        this.playerOne.send(JSON.stringify({id: this.playerOne._socket.remoteAddress, matchmaked: true, yourTurn: true, playerblack: false}));
+        this.playerTwo.send(JSON.stringify({id: this.playerTwo._socket.remoteAddress, matchmaked: true, yourTurn: false, playerblack: true}));
     }
     stop(player){
         let date = new Date();
