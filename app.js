@@ -12,8 +12,8 @@ const fs = require('fs');
 
 
 
-const wssLobby = new WebSocket.Server({port:8006});
-const wssGame = new WebSocket.Server({port:8005});
+const wssLobby = new WebSocket.Server({port:8006, host:"0.0.0.0"});
+const wssGame = new WebSocket.Server({port:8005, host:"0.0.0.0"});
 
 
 //Read the saved stats from the facts.json file
