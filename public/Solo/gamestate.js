@@ -4,7 +4,7 @@ let gamestate = {
 	playerblack:false,
 	cellwidth:undefined,
 
-	AI:true,
+	AI:false,
 	AImove:false,
 
 	paused: false,
@@ -25,6 +25,7 @@ let gamestate = {
 
 	gamestring: {
 		movehelper:"Movehelper on",
+		ai:"AI off"
 	},
 
 	menus: [],

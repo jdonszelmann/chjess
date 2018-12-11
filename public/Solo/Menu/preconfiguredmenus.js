@@ -10,14 +10,14 @@ let ChoosePawn;
 let preconfiguredmenus = {
     "Main Menu": function(){
         mainMenu = new Menu("mainMenu", 3,3,4,3, "Main Menu!");
-        mainMenu.addButton("Single Player", 2, 1.5,2,0.5, "Single Player!", function(){
+        mainMenu.addButton("Single Player", 2, 1.5,2,0.5, "Play!", function(){
             mainMenu.deactivate();
             mainMenuTab.activate();
             gamestate.paused = false;
             chessclock.get().reset();
         });
         mainMenu.addButton("quit", 2, 2.1, 2, 0.5, "Quit!", function(){
-            open("https://www.urbandictionary.com/define.php?term=ragequit", '_self');
+            window.location = "/"
         });
         mainMenu.addButton("settings", 2, 2.7, 2, 0.5, "settings", function(){
             mainMenu.deactivate();
@@ -119,8 +119,9 @@ let preconfiguredmenus = {
             }      
         });
 
-        settings.addButton("change start setup",2, 3.3,2,0.5, "change start setup", function(){
-            alert("WIP");
+        settings.addButton("AI",2, 3.3,2,0.5, "AI", function(){
+            gamestate.AI = !gamestate.AI
+            gamestate.gamestring.ai = gamestate.AI?"AI on":"AI off";
         });
 
         settings.addButton("movehelper",2, 3.9,2,0.5, "toggle movehelper", function(){

@@ -11,12 +11,9 @@ window.onresize = function(){
 
 	gamestate.cellwidth = canvas.width/8;
 
-	openMenu("Main Menu");
 	openMenu("Main Menu Tab");
 	openMenu("Main Menu InGame");
-	openMenu("settings");
 	openMenu("confirm");
-	openMenu("confirm2");
 	openMenu("ChoosePawn");
 	chessclock.get().reload();
 }
@@ -28,30 +25,14 @@ window.onzoom = function() {
 
 	gamestate.cellwidth = canvas.width/8;
 	
-	openMenu("Main Menu");
 	openMenu("Main Menu Tab");
 	openMenu("Main Menu InGame");
-	openMenu("settings");
 	openMenu("confirm");
-	openMenu("confirm2");
+	openMenu("ChoosePawn");
 	chessclock.get().reload();
 };
 
-// detect resize
-let pixelratio = 0;
-function pollresize() {
-	let newpixelratio = (window.outerWidth - 8) / window.innerWidth;
-	if(newpixelratio != pixelratio){
-		window.onzoom();
-		pixelratio = newpixelratio;
-		if((pixelratio < 0.8 || pixelratio > 1.8)){
-			alert("for a better experience, please change your zoom level closer to 100%");
-		}
-	}
-}
 
-
-window.setInterval(pollresize, 100);
 
 function setup(){
 	//graphics lib executes this once at load time
@@ -65,7 +46,7 @@ function setup(){
 	document.getElementsByTagName("body")[0].style.backgroundColor = "rgb(51,51,51)"
 
 	whitechessboard = new Image();
-	whitechessboard.src = "/Multi/resources/chessboard-black.png"
+	whitechessboard.src = "/Multi/resources/chessboard-white.png"
 
 	blackchessboard = new Image();
 	blackchessboard.src = "/Multi/resources/chessboard-white.png"
@@ -83,23 +64,17 @@ function setup(){
     });
 
 	activemenus = new activeMenus();
-	openMenu("Main Menu");
 	openMenu("Main Menu Tab");
 	openMenu("Main Menu InGame");
-	openMenu("settings");
 	openMenu("confirm");
-	openMenu("confirm2");
 	openMenu("ChoosePawn");
+	mainMenuTab.activate()
+	gamestate.paused = false;
 
 
-	let ratio = (window.outerWidth - 8) / window.innerWidth;
-	if(ratio < 0.8 || ratio > 1.8){
-		alert("for a better experience, please change your zoom level closer to 100%");
-	}
 }
 
 function draw(){
-	
 	//executed 60 times per second after all loads have completed
 
 	// if(gamestate.animation == "rotateboard" && gamestate.winner==null){

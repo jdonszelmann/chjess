@@ -1,0 +1,12 @@
+
+
+Game features:
+
+	positive:
+		- pieces can be dragged to move. very intuitive
+		- good general website design (appart from the game itself)
+		- easy navigatability but not too easy. you dont want to accidentally quit a game
+	negative:
+		- because pieces are draggable they dont always work right on mobile
+		- bad color choice (especially image 2)
+		- too plain (img 4) 

@@ -7,6 +7,11 @@
 var app = require('../app');
 var debug = require('debug')('chjess-server:server');
 const http = require('http');
+var path = require('path');
+var ejs = require("ejs");
+
+
+app.set('views', path.join(__dirname, '../public'));
 
 /**
  * Get port from environment and store in Express.
@@ -24,6 +29,11 @@ let server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+
+/*
+use ejs
+*/
+app.set('view engine', 'ejs');
 
 
 server.listen(port, "0.0.0.0");

@@ -1,0 +1,15 @@
+is for specifying the browser tyoe (mostly within windows). possible values for it are
+
+5 (Internet Explorer)
+6 (Internet Explorer)
+7 (Internet Explorer)
+8 (Internet Explorer)
+9 (Internet Explorer)
+10 (Internet Explorer)
+11 (Internet Explorer)
+Edge 
+EmulateIE7
+EmulateIE8
+EmulateIE9
+EmulateIE10
+EmulateIE11

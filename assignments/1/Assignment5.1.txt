@@ -1,0 +1,4 @@
+
+name: chjess
+image/design: see images (splash.png)
+description: chess game for multi and singleplayer including private multiplayer games

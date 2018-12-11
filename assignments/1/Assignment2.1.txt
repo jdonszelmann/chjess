@@ -1,0 +1,108 @@
+right length:
+
+Trying 52.203.53.176...
+Connected to httpbin.org.
+Escape character is '^]'.
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Date: Wed, 14 Nov 2018 06:23:14 GMT
+Content-Type: application/json
+Content-Length: 298
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Via: 1.1 vegur
+
+{
+  "args": {}, 
+  "data": "Hello World!", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Connection": "close", 
+    "Content-Length": "12", 
+    "Content-Type": "text/plain", 
+    "Host": "httpbin.org"
+  }, 
+  "json": null, 
+  "origin": "88.202.161.201", 
+  "url": "http://httpbin.org/put"
+}
+
+
+message too long:
+
+Trying 52.73.9.93...
+Connected to httpbin.org.
+Escape character is '^]'.
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Date: Wed, 14 Nov 2018 06:24:24 GMT
+Content-Type: application/json
+Content-Length: 298
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Via: 1.1 vegur
+
+{
+  "args": {}, 
+  "data": "HEEEEEEEEEEE", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Connection": "close", 
+    "Content-Length": "12", 
+    "Content-Type": "text/plain", 
+    "Host": "httpbin.org"
+  }, 
+  "json": null, 
+  "origin": "88.202.161.201", 
+  "url": "http://httpbin.org/put"
+}
+HTTP/1.1 400 Bad Request
+Connection: close
+Server: Cowboy
+Date: Wed, 14 Nov 2018 06:24:23 GMT
+Content-Length: 0
+
+
+cut off, bad request
+
+message too short:
+
+Trying 52.73.9.93...
+Connected to httpbin.org.
+Escape character is '^]'.
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Date: Wed, 14 Nov 2018 06:25:42 GMT
+Content-Type: application/json
+Content-Length: 305
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Via: 1.1 vegur
+
+{
+  "args": {}, 
+  "data": "Hello\r\n\r\n\r\n\r", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Connection": "close", 
+    "Content-Length": "12", 
+    "Content-Type": "text/plain", 
+    "Host": "httpbin.org"
+  }, 
+  "json": null, 
+  "origin": "88.202.161.201", 
+  "url": "http://httpbin.org/put"
+}
+HTTP/1.1 400 Bad Request
+Connection: close
+Server: Cowboy
+Date: Wed, 14 Nov 2018 06:25:42 GMT
+Content-Length: 0
+
+(you cant. it will read body until all 12 chars are filled. i kept pressing enter which inserts \r\n which is 2 new chars until it got to 12)

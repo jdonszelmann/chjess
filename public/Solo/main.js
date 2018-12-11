@@ -33,24 +33,10 @@ window.onzoom = function() {
 	openMenu("settings");
 	openMenu("confirm");
 	openMenu("confirm2");
+	openMenu("ChoosePawn");
 	chessclock.get().reload();
 };
 
-// detect resize
-let pixelratio = 0;
-function pollresize() {
-	let newpixelratio = (window.outerWidth - 8) / window.innerWidth;
-	if(newpixelratio != pixelratio){
-		window.onzoom();
-		pixelratio = newpixelratio;
-		// if((pixelratio < 0.8 || pixelratio > 1.8)){
-		// 	alert("for a better experience, please change your zoom level closer to 100%");
-		// }
-	}
-}
-
-
-window.setInterval(pollresize, 100);
 
 function setup(){
 	//graphics lib executes this once at load time
@@ -88,13 +74,6 @@ function setup(){
 	openMenu("confirm2");
 	openMenu("ChoosePawn");
 
-	// activemenus.active.alpha = 255;
-	// console.log(activemenus.active);
-
-	// let ratio = (window.outerWidth - 8) / window.innerWidth;
-	// if(ratio < 0.8 || ratio > 1.8){
-	// 	alert("for a better experience, please change your zoom level closer to 100%");
-	// }
 }
 
 function draw(){
