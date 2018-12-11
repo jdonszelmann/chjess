@@ -1,0 +1,32 @@
+without Authorization: Basic ...
+
+Trying 54.174.228.92...
+Connected to httpbin.org.
+Escape character is '^]'.
+HTTP/1.1 401 UNAUTHORIZED
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Date: Wed, 14 Nov 2018 06:34:03 GMT
+Www-Authenticate: Basic realm="Fake Realm"
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Content-Length: 0
+Via: 1.1 vegur
+
+with Authoriation: Basic ...
+
+Trying 54.174.228.92...
+Connected to httpbin.org.
+Escape character is '^]'.
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Date: Wed, 14 Nov 2018 06:37:02 GMT
+Content-Type: application/json
+Content-Length: 47
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Via: 1.1 vegur
+
+retry:
+no it is not the same. when the session is closed all data from previous sessions are lost. in the browser these are (temporarily) saved.

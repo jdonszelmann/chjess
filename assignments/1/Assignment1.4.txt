@@ -1,0 +1,2 @@
+
+it let's both webcaches and browsercaches know what can be cached and how long it takes before the data is invalid and should be re-requested from the server

@@ -42,7 +42,7 @@ let AI = {
 			}else if(i.constructor.name == "king"){
 				score = 900;
 			}
-			if(i.blackpiece){
+			if(!i.blackpiece){
 				score = -score;
 			}
 			totalscore += score;

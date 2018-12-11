@@ -1,0 +1,4 @@
+
+
+see images/board.png
+see resources folder in /public for chesspieces (mostly self-drawn)

@@ -1,0 +1,66 @@
+
+1.1	CSS
+1.2	CSS
+1.3	CSS
+1.4	CSS
+1.5	→→→ upload 1.1 / 1.2 to 💡 Brightspace forum
+2	Source code
+3	Source code
+4	-
+5 (optional)	→→→ upload URL to 💡 Brightspace forum
+
+
+1.1:
+
+using :hover in index.js for the game start buttons
+using ::after  in .gameplayBox::after to add exclaimation marks. totally unnecessary but it shows the working...
+using margin, padding basically everywhere (but also grid) padding for example in gameplaybox (index.css)
+using position relative/absolute/fixed/auto 
+animations for hovering and for loading of data from the server (private lobby ling)
+
+✓
+
+1.2:
+
+coherent: not really... but at least we didn't duplicate any css because the game doesnt use any css.... all js and canvas :)
+
+✓
+
+1.3:
+
+media queries are used to block input and display a message when the screen gets too small. example: public/single/index.html (see style tag)
+
+✓
+
+1.4:
+
+just press f11 you know... everything works fine!
+
+✓
+
+1.5:
+
+✓
+
+2: 
+
+lobby uses ejs to display the title. again totally useless but it shows the working of ejs. in game pages there is no need since there barely is any html
+
+✓
+
+3:
+
+we use tons of cookies including game access and many from the google login system
+
+✓
+
+4: tested in chrome, edge, firefox and safari. works in fullscreen mode (windows: f11). runs on most touchscreen devices with the notable exception of many iphones.
+
+but hey, who cares about apple anyways
+
+5:
+
+deployed on our own 24/7 webserver.
+
+recording:
+https://www.youtube.com/watch?v=8e-uEbZbrxU&feature=youtu.be
