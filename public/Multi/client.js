@@ -46,7 +46,7 @@ let startSocket = {
         waiting(true);
         socket.onmessage = function (evt) {
             let message = JSON.parse(evt.data);
-            if (message.id == clientIP || window.location.hostname == 'localhost' || window.location.hostname == 'lvh.me' || window.location.hostname == '127.0.0.01.nip.io' || window.location.hostname == "145.94.158.224") {
+            if (message.id == clientIP || window.location.hostname == 'localhost' || window.location.hostname == 'lvh.me' || window.location.hostname == '127.0.0.01.nip.io' || window.location.hostname == "145.130.58.197") {
                 if (message.matchmaked == true) {
                     let id = setTimeout(function () {
                     }, 0);
