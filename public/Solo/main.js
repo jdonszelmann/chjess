@@ -1,7 +1,6 @@
 
 
 let chessboard;
-
 let activemenus;
 
 window.onresize = function(){
@@ -10,6 +9,7 @@ window.onresize = function(){
 
 	gamestate.cellwidth = canvas.width/8;
 
+	//initialize canvas menus
 	openMenu("Main Menu");
 	openMenu("Main Menu Tab");
 	openMenu("Main Menu InGame");

@@ -1,4 +1,5 @@
 
+//list of pieces' filenames
 let piecemap = {
 	black:{
 		queen:"/Solo/resources/queen-black.png",
@@ -18,7 +19,7 @@ let piecemap = {
 	}
 }
 
-
+//generic chesspiece class
 class chesspiece{
 	constructor(filename,x,y,blackpiece){
 		this.filename = filename
@@ -34,6 +35,7 @@ class chesspiece{
 
 	}
 
+    //draw a chesspiece
 	draw(){
 		if(!this.dead){
 			let x = this.x;
@@ -50,7 +52,7 @@ class chesspiece{
 		}
 	}
 
-
+    //draw all possible moves of this piece (blue lines)
 	drawoptions(){
 
 		 function distance(x1,y1,x2,y2){
@@ -91,6 +93,8 @@ class chesspiece{
 	}
 }
 
+
+//subclass chesspiece for bishops
 class bishop extends chesspiece{
 	constructor(x,y,blackpiece){
 		let filename;
@@ -102,8 +106,9 @@ class bishop extends chesspiece{
 		}
 
 		super(filename,x,y,blackpiece);
-	}
+	}  
 
+    //calculate move options for this piece. different for every piece of course
 	options(){
 		let possibilities = [];
 		let gm = gameboard.get().constructgamemap();

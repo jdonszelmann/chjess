@@ -1,6 +1,9 @@
 let popup = document.getElementById('popup');
 let profile;
+//port 8006 is for lobby, 8007 for the game itself
 let socket = new WebSocket("ws://"+window.location.hostname+":8006");
+
+//react on message
 socket.onmessage = function (evt) {
     let message = JSON.parse(evt.data);
     if(message.type == "facts") {
@@ -12,9 +15,10 @@ socket.onmessage = function (evt) {
         document.getElementById("timeInQueue").getElementsByTagName("p")[0].innerHTML = message.timeInQueue + " minutes";
     } else if (message.type == "gameID"){
         waiting(0);
-        popup.innerHTML = "<h3>Give this link to your friend!</h3><hr/><textarea readonly onclick=\"this.focus();this.select()\">http://"+window.location.hostname+":8001/multi/"+message.gameID+"</textarea>";
+        //set the private lobby url
+        popup.innerHTML = "<h3>Give this link to your friend!</h3><hr/><textarea readonly onclick=\"this.focus();this.select()\">http://"+window.location.hostname+":80/multi/"+message.gameID+"</textarea>";
     } else if (message.type == "matchmaked"){
-        open("http://"+window.location.hostname+":8001/multi/"+message.gameID, "_self");
+        open("http://"+window.location.hostname+":80/multi/"+message.gameID, "_self");
     }
 }
 
@@ -54,6 +58,7 @@ function onSignIn(googleUser) {
     // });
 
 }
+//for google oauth
 function SignOut() {
     let auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
@@ -64,7 +69,7 @@ function SignOut() {
     });
 }
 
-
+//add update or remove cookies. total bullshit of course because we dont use it but we have to for points...
 const updateAddRemoveCookie = (name, value, expirationSeconds = 86400) => {
     if (value !== "") {
         const date = new Date();
@@ -84,5 +89,5 @@ const getCookie = (name) => {
     }
 };
 
-
+//add a bullshit cookie
 updateAddRemoveCookie("i","hate this")

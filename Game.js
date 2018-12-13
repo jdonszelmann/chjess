@@ -7,6 +7,8 @@ module.exports.lists = {
 
 const lists = require('./Game').lists;
 module.exports.Game = class Game{
+
+    //makes new game object
     constructor(sock, lobbyID=null){
         if(lobbyID===null) {
             let date = new Date();
@@ -27,6 +29,7 @@ module.exports.Game = class Game{
             console.log("Private lobby "+this.lobbyID+" started");
         }
     }
+    //a player can join this game
     join(rival){
         if(this.lobby) {
             lists.openLobbyList.splice(this.lLInstance-1, 1);
@@ -37,6 +40,7 @@ module.exports.Game = class Game{
             console.log(this.playerTwo._socket.remoteAddress + " joined player "+ this.playerOne._socket.remoteAddress);
         }
     }
+    //updates 1 player when the other moves
     move(player, piece, x, y){
         if(player == 1){
             this.playerTwo.send(JSON.stringify({id: this.playerTwo._socket.remoteAddress, move: true, piece: piece, x: x, y: y}));
@@ -45,6 +49,7 @@ module.exports.Game = class Game{
         }
     }
 
+    //starts the match when a conection is established
     start(){
         let date = new Date();
         this.startPlayTime = [date.getHours(), date.getMinutes(), date.getSeconds()];
@@ -53,6 +58,8 @@ module.exports.Game = class Game{
         this.playerOne.send(JSON.stringify({id: this.playerOne._socket.remoteAddress, matchmaked: true, yourTurn: true, playerblack: false}));
         this.playerTwo.send(JSON.stringify({id: this.playerTwo._socket.remoteAddress, matchmaked: true, yourTurn: false, playerblack: true}));
     }
+
+    //end a game
     stop(player){
         let date = new Date();
         if(this.startPlayTime[0] == -1){
@@ -88,6 +95,7 @@ module.exports.Game = class Game{
             delete lists.privateLobbyList[this.lobbyID];
         }
     }
+    //calculates the time difference in minutes
     timeDifferenceInMinutes(begin, end){
         let difference = [0,0,0];
         difference[0] = end[0]-begin[0];
