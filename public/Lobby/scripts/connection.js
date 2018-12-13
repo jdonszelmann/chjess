@@ -64,3 +64,25 @@ function SignOut() {
     });
 }
 
+
+const updateAddRemoveCookie = (name, value, expirationSeconds = 86400) => {
+    if (value !== "") {
+        const date = new Date();
+        date.setTime(date.getTime() + expirationSeconds);
+        const expires = "; expires=" + date.toGMTString();
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+};
+
+const getCookie = (name) => {
+    const cookieWithPrependedSemi = `; ${document.cookie}`;
+    const cookieParts = cookieWithPrependedSemi.split(`; ${name}=`);
+    if (cookieParts.length == 2) {
+        return cookieParts.pop().split(";").shift();
+    } else {
+        return null;
+    }
+};
+
+
+updateAddRemoveCookie("i","hate this")
