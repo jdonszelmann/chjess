@@ -1,6 +1,8 @@
 let socket;
 let clientIP;
 let http = new XMLHttpRequest();
+
+//receive ip
 http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         let res = JSON.parse(this.responseText);
@@ -8,16 +10,21 @@ http.onreadystatechange = function() {
         startSocket.start();
     }
 };
+
+//request users ip
 http.open("GET", "https://v4.ident.me/.json", true);
 http.send();
 
 let matchmaking = true;
 let yourTurn;
 
+//timeout client
 let stopWaiting = function (){
     waiting(false);
     document.getElementById("matchmaking-status").innerHTML = "Matchmaking, please wait..";
 }
+
+//start waiting for an opponent
 function waiting(boolean){
     let img = document.getElementById("loading-bar");
     let imgC = document.getElementById("loading-container");
@@ -29,6 +36,8 @@ function waiting(boolean){
         img.style.webkitAnimation = "";
     }
 }
+
+//start websockets
 let startSocket = {
     closeGame: function () {
         socket.onclose = function () {
@@ -92,6 +101,7 @@ let startSocket = {
             }
         };
 
+        //timeout after 1 minute
         setTimeout(function () {
             document.getElementById("matchmaking-status").innerHTML = "There were not enough players to match, try again later.";
         }, 60000);
