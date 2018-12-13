@@ -223,8 +223,11 @@ class gameboard{
 			i.draw();
 		}
 	}
+	
+	// Checks if the king will be in danger and stops the piece running this function from moving
 	kingNotInDanger(piece){
 		let King;
+		//	Finds the King
 		for(let i of this.pieces){
 			if(i.blackpiece == gamestate.playerblack && i.constructor == king){
 				King = i;
@@ -584,6 +587,8 @@ class gameboard{
 		}
 		return [true];
 	}
+	
+	// Check if the king can move to this tile
 	tileSaveForKing(x,y, itself){
         let piece;
         let Return = true;
@@ -593,20 +598,27 @@ class gameboard{
             for(let i = 1; i<Math.min(8-x, 1+y); i++){
                 piece = gameboard.get().getpieceat(x+i, y-i);
                 if(piece != null && piece == itself){
+		    //	The piece at this x,y is itself so continue
                     continue;
                 }
                 if(piece != null && !piece.dead && piece.blackpiece){
+		    //	The piece at this x,y is a piece of the same color as the player so stop this loop
                     break;
                 }
                 if(piece != null && !piece.dead && !(piece instanceof queen || piece instanceof bishop)){
+		    // If the piece on this x,y is not a queen or a bishop break this loop
                     break;
                 } else if (piece != null && !piece.dead){
+		    // The piece on this x,y is a queen or a bishop of a different color than the player
                     if(x == itself.x && y == itself.y){
+			// All tiles which are between the king and the queen or bishop are put in the enemy array so other
+			// pieces may block the enemy piece
                         for(let e = i; e!=0; e--){
                             enemy.push([x+e,y-e]);
                         }
                         Return = false;
                     } else {
+			// This tile is not available for the king to move to
                         return [false]
                     }
                 }
