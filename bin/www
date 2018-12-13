@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, '../public'));
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(process.env.PORT || '8001');
+let port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 /**

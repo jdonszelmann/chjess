@@ -12,9 +12,9 @@ socket.onmessage = function (evt) {
         document.getElementById("timeInQueue").getElementsByTagName("p")[0].innerHTML = message.timeInQueue + " minutes";
     } else if (message.type == "gameID"){
         waiting(0);
-        popup.innerHTML = "<h3>Give this link to your friend!</h3><hr/><textarea readonly onclick=\"this.focus();this.select()\">http://"+window.location.hostname+":8001/multi/"+message.gameID+"</textarea>";
+        popup.innerHTML = "<h3>Give this link to your friend!</h3><hr/><textarea readonly onclick=\"this.focus();this.select()\">http://"+window.location.hostname+":80/multi/"+message.gameID+"</textarea>";
     } else if (message.type == "matchmaked"){
-        open("http://"+window.location.hostname+":8001/multi/"+message.gameID, "_self");
+        open("http://"+window.location.hostname+":80/multi/"+message.gameID, "_self");
     }
 }
 
